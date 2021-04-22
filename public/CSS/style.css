@@ -1,0 +1,64 @@
+table {
+    margin: 0px auto;
+    padding:0px;
+    border-collapse: collapse;
+    border-spacing: 0px;
+}
+
+td, tr {
+    border-spacing: 0px;
+    border-right:4px solid;
+    border-left:4px solid;
+    padding: 0px;
+    width:40px;
+    height:40px;
+}
+
+#amida-icon table{
+    margin: 0px auto;
+    padding:0;
+    border-style:none;
+    border-collapse: separate;
+    border-spacing: 0px;    
+}
+
+#amida-icon td, th {
+    border-spacing: 0px;
+    border-style:none;
+    text-align:center ;
+    width:40px;
+    height:40px;
+}
+
+
+
+td img {
+    vertical-align: top;
+}
+
+.align-center{
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    align-items: center;
+}
+
+.body{
+    position: relative;
+}
+
+.top-black{
+    border-top:4px solid;
+}
+
+.border-left-red{
+    border-left:4px solid red;
+}
+
+.border-right-red{
+    border-right:4px solid red;
+}
+
+.border-top-red{
+    border-top:4px solid red;
+}
