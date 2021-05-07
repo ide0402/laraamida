@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AmidaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [AmidaController::class, 'index']);
+Route::get('/create', [AmidaController::class, 'create'])->name('create');
+Route::post('/create',[AmidaController::class, 'store'])->name('store');
+Route::get('/{user}', [AmidaController::class, 'showAmida']);
