@@ -24,9 +24,18 @@ class AmidaController extends Controller
         $user->fill($request->all());
         $user->amida = serialize($this->setAmida($request->kuji_num, 10));
         $user->save();
-        // $item->users_id = $user->id;
-        // $item->item = $request->item;
-        // $item->item_num = $request->item_num;
+
+        if ($request->item = 'item_create_bulk'){
+            $item_arrays = $this->convertItemToArray($request->item_bulk);
+        }
+
+        foreach ($item_arrays as $item_array){
+            $item = new Item();
+            $item->users_id = $user->id;
+            $item->item = $item_array['item'];
+            $item->item_num = $item_array['item_num'];
+            $item->save();
+        }
         return redirect('/'. $user->id);
     }
 
@@ -64,6 +73,20 @@ class AmidaController extends Controller
             array_push($initial_array_per_row, $rand_num);
         };
         return $initial_array_per_row;
+    }
+
+    public function convertItemToArray($item_bulk)
+    {
+        $keys = ['item','item_num'];
+        $atari_item = [];
+        $item_bulk = str_replace(array("\r\n", "\r", "\n"), "\n", $item_bulk);
+        $item_bulk = str_replace(array("\t"), ",", $item_bulk);
+        $array_items = explode("\n", $item_bulk);
+        foreach ($array_items as $array_item){
+            $array_item = array_combine($keys, explode(",", $array_item));
+            array_push($atari_item, $array_item); 
+        }
+        return $atari_item;
     }
 
 }
