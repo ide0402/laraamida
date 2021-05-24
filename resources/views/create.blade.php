@@ -22,128 +22,139 @@
         </style>
     </head>
     <body>
-        <div class="align-center">
-            <form action="{{ route('store') }}" method="post">
+        <div class="align_center">
+            <form action="{{ route('store') }}" method="post" id="form_create" name="form_create">
                 @csrf
+                <div>あみだくじ設定内容</div>
+                <div class="validation_message align_left" id="validation_message"></div>
                 <table class="create-form">
+                    <tr><th>タイトル名</th></tr>
                     <tr>
-                        <th colspan="2">あみだくじ設定内容</th>
-                    </tr>
-                    <tr>
-                        <th>
-                            <span>タイトル名<br></span>
-                            <span class="size_8px color_grey">※任意 20文字以内</span>
-                        </th>
                         <td>
-                            <input type="text" class="title" name ="title" value =""></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            <span>くじの本数<br></span>
-                            <span class="size_8px color_red">※必須 最大100の半角数字</span>
-                        </th>
-                        <td>
-                            <input type="number" class="kuji_num" name="kuji_num" id="kuji_num">本</input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            <span>くじ詳細<br></span>
-                            <span class="size_8px color_red">※必須</span>
-                        </th>
-                        <td>
-                            <div id="create_atarikuji">
-                                <table>
-                                    <tr>
-                                        <th>残り：</th>
-                                        <td><input type="number" class="remainig_kuji" id="remainig_kuji"></input></td>
-                                    </tr>
-                                    <tr>
-                                        <th>はずれくじの本数：</th>
-                                        <td><input type="number" class="hazure_num" name="hazure_num" id="hazure_num">本</input></td>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="2"><input type="radio" class="item" name="item" value="item_create">一つずつ作成</th>
-                                    </tr>
-                                    <tr>
-                                        <th class="description" colspan="2">　　あたりくじの種類が少ない場合はこちらがおすすめです。</th>
-                                    </tr>
-                                    <tr class="display_off">
-                                        <th>あたりくじの種類：</th>
-                                        <td><input type="number" class="" name="" id="atari_types_num">種類</input></td>
-                                    </tr>
-                                    <tr class="display_off">
-                                        <th colspan="2">
-                                            <table>
-                                                <tr>
-                                                    <th>あたりくじの名前</th>
-                                                    <th>本数</th>
-                                                </tr>
-                                                <tr>
-                                                    <td><input type="text" class="" name=""></input></td>
-                                                    <td><input type="number" class="" name="">本</input></td>
-                                                </tr>
-                                            </table>
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="2"><input type="radio" class="item" name="item" value="item_create_bulk">一括作成</th>
-                                    <tr>
-                                        <th class="description" colspan="2">　　Excelやスプレッドシートからコピーしたデータを<br>　　貼り付けたい場合はこちらがおすすめです。</th>
-                                    </tr>
-                                    <hr style="border:1px dotted #000000;">
-                                    <input type="button" value="閉じる">
-                                    <tr class="display_on">
-                                        <th colspan="2">
-                                            <table>
-                                                <tr>
-                                                    <td><textarea class = "bulk" rows="10" name="item_bulk"></textarea></td>
-                                                    <td>タブ区切りかカンマ区切りで<br>「あたりくじの名前 あたりくじの本数」<br>の順番になるように入力してください。<br>あたりくじが複数の場合は改行して同様に入力してください。<br>※Excelなどからコピーすると簡単に入力できます。</td>
-                                                </tr>
-                                            </table>                            
-                                        </th>
-                                    </tr>
-                                </table>
+                            <div class="margin_left_5px">20文字以内で設定してください。(任意)</div>
+                            <div id="title_message_area" class="text-red"></div>
+                            <input type="text" class="title" name ="title" value ="" id="title">
+                            <div class="count_num">
+                                <span id="title_length" class="molecule_black">0</span>
+                                <span>/20</span>
                             </div>
                         </td>
-                    </tr>                                    
-                    <tr>
-                        <th rowspan="5">
-                            <span>管理人パスワード<br></span>
-                            <span class="size_8px color_red">※必須　半角英数字のみ</span>
-                        </th>
                     </tr>
+                    <tr><th>管理用パスワード<span class="size_8px color_red">※</span></th></tr>
                     <tr>
-                        <td>4文字以上の半角英数字で設定してください。<br>(くじの編集や結果の集計に必要になります。)</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="text" class="pass" name ="pass" value =""></input>
+                        <td id="pass_area">
+                            <div class="margin_left_5px">4文字以上の半角英数字で設定してください。</div>
+                            <div class="margin_left_5px">(くじの編集や結果の集計に必要になります。)</div>
+                            <div id="pass_message_area" class="err_message"></div>
+                            <input type="password" id="pass" class="pass" name="pass" value="" min="4" >
+                            <span id="pass_message_area" class="err_message"></span>
+                            <div class="margin_left_5px"><br>パスワードの再確認<br></div>
+                            <input type="password" id="pass_confirm" class="pass" name="pass_confirm" value="" min="4">
+                            <span id="pass_confirm_message_area" class="err_message"></span>
                         </td>
                     </tr>
-                    <tr>
-                        <td>パスワードの再確認</td>
-                    </tr>
+                    <tr><th>管理人メッセージ</th></tr>  
                     <tr>
                         <td>
-                            <input type="text" class="pass" name ="pass" value =""></input>
+                            <div class="margin_left_5px">200文字以内で設定してください。(任意)</div>
+                            <div id="message_message_area" class="text-red"></div>
+                            <textarea class="message" rows="10" name="manager_comment" id="message"></textarea>
+                            <div class="count_num">
+                                <span id="message_length" class="molecule_black">0</span>
+                                <span>/200</span>
+                            </div>
                         </td>
                     </tr>
+                    <tr><th>くじ詳細<span class="size_8px color_red">※</span></th></tr>
                     <tr>
-                        <th>
-                            <span>管理人メッセージ<br></span>
-                            <span class="size_8px color_grey">※任意</span>
-                        </th>
                         <td>
-                            <textarea class = "message" rows="10" name="manager_comment"></textarea>
+                            <div id="option_message_area" class="text-red"></div>
+                            <input type="radio" id="item_create" class="item" name="item" value="item_create">一つずつ作成
+                            <div class="description">あたりくじの種類が少ない場合はこちらがおすすめです。</div>
+                            <input type="radio" id="item_create_bulk" class="item" name="item" value="item_create_bulk">一括作成
+                            <div class="description">Excelやスプレッドシートからコピーしたデータを<br>貼り付けたい場合はこちらがおすすめです。</div>
+                            <div id="kuji_detail_area" class="display_status kuji_detail_area display_off" data-atari_before="1" data-atari_after="1" data-isopen="false">
+                                <hr style="border:1px dotted #000000; margin:5px; ">
+                                <div class="margin_left_5px">
+                                    <div id="kujinum_message_area" class="text-red"></div>
+                                    <span>くじの本数</span>
+                                    <input type="number" class="kuji_num" name="kuji_num" id="kuji_num" min="0" max="100">本
+                                    <span class="size_8px color_red">※ 最大100</span>
+                                </div>
+                                <div class="margin_left_5px">
+                                    <div id="hazurenum_message_area" class="text-red"></div>
+                                    <span>はずれくじの本数：</span>
+                                    <span class="hazure_num" name="hazure_num" id="hazure_num">本</span>
+                                    <div class="description">くじ本数・あたりくじの本数から自動で算出されます。<br>あみだくじの中では空白で表示されます。</div>
+                                </div>
+                                <div class="display_status margin_left_5px atari_detail_row display_off" data-isopen="false">
+                                    <div id="atari_types_num_message_area" class="text-red"></div>
+                                    <span>あたりくじの種類：</span>
+                                    <input type="number" class="atari_types_num" name="atari_types_num" id="atari_types_num" min="1" max="100" value="1">種類
+                                    <span class="size_8px color_red">※</span>
+                                </div>
+                                <div class="align_center margin_bottom_5px"><span><br><input type="button" value="閉じる" id="close_button" class="button button--shadow"></span></div>
+                                <div class="display_status margin_left_20px atari_detail_row display_off" data-isopen="false">
+                                    <span>------------------------ あたりくじ詳細 ------------------------</span>
+                                    <div id="atariitem_name_message_area" class="text-red"></div>
+                                    <div id="atariitem_num_message_area" class="text-red"></div>
+                                </div>
+                                <div class="display_status margin_left_20px atari_detail_row display_off" data-isopen="false">
+                                    <input type="checkbox" id="checkbox_atari_name">あたりくじの名前を自分で作成
+                                    <div class="description">チェックを入れると現在入力されているあたりくじの値がクリアされます。</div>
+                                </div>
+                                <div class="display_status margin_left_20px atari_detail_row display_off" data-isopen="false">
+                                    <table class="atari_detail_table" id="atari_detail_table">
+                                        <thead>
+                                            <tr>
+                                                <th class="atari_text_head margin_left_20px">
+                                                    <span>あたりくじの名前</span>
+                                                    <span class="size_8px color_red">※</span>
+                                                </th>
+                                                <th class="atari_num_head">
+                                                    <span>本数</span>
+                                                    <span class="size_8px color_red">※</span>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="atari_detail_row" id="atari_row_0">
+                                                <td id="atari_text_0"><input type="text" name="atari_name[]" class="atari_text" value="○"></td>
+                                                <td id="atari_number_0"><input type="number" name="atari_num[]" class="atari_num" value="1"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div id="option_bulk" class="display_status display_off" data-isopen="false">
+                                    <table class="item_bulk_table">
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="margin_left_5px align_center">
+                                                    <span>--------------------------------- 一括入力フィールド ---------------------------------</span>
+                                                </div>
+                                                <div class="margin_left_5px">
+                                                    <div id="atariitem_name_bulk_message_area" class="text-red"></div>
+                                                    <div id="atariitem_num_bulk_message_area" class="text-red"></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><textarea id="item_bulk" class="bulk" rows="10" name="item_bulk"></textarea></td>
+                                            <td>タブ区切りかカンマ区切りで<br>「あたりくじの名前,あたりくじの本数」<br>の順番になるように入力してください。<br>あたりくじが複数ある場合は<br>改行して同様に入力してください。<br>※Excelなどからコピーすると簡単に入力できます。<br><入力例><br>大吉,3<br>中吉,5<br>※この場合は大吉が3本、中吉が5本作成されます。<br>はずれ本数はくじ本数によって変動します。
+                                            </td>
+                                        </tr>
+                                    </table>                           
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 </table>
-                <input type="submit" name="submit" class="button" value="作成"/>
+                <input type="hidden" name="atari_items_name" id="atari_items_name" value="">
+                <input type="hidden" name="atari_items_num" id="atari_items_num" value="">
+                <input type="button" name="submit_button" class="button button--shadow" value="作成" id="submit_button"/>
             </form>
         </div>
-        <script src={{ asset('js/class.js') }}></script>
+        <script src={{ asset('js/form_class.js') }}></script>
         <script src={{ asset('js/form_main.js') }}></script>
     </body>
 </html>

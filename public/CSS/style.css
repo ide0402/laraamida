@@ -62,3 +62,11 @@ td img {
 .border-top-red{
     border-top:4px solid red;
 }
+
+.icon {
+    width:auto;
+    height:auto;
+    max-width:50%;
+    max-height:50%;
+    cursor: pointer;
+}
