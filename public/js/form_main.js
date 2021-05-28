@@ -140,13 +140,13 @@
         }
     })
 
-    PASS.addEventListener('change', () => {
-        Validation.password();
-    })
+    // PASS.addEventListener('change', () => {
+    //     Validation.password();
+    // })
     
-    PASS_CONFIRM.addEventListener('change', () => {
-        Validation.password();    
-    })
+    // PASS_CONFIRM.addEventListener('change', () => {
+    //     Validation.password();    
+    // })
     
     CLOSE_BUTTON.addEventListener('click', () => {
         let checked_radio_button = Form.getCheckedRadioButton();
@@ -191,7 +191,7 @@
         let flg = [];
         flg.push(Validation.text(max_length['title'], TITLE, TITLE_MESSAGE_AREA, TITLE_LENGTH));
         flg.push(Validation.text(max_length['message'], MESSAGE, MESSAGE_MESSAGE_AREA, MESSAGE_LENGTH));
-        flg.push(Validation.password());
+        // flg.push(Validation.password());
         flg.push(Validation.radiobutton());
         flg.push(Validation.kujiNum(KUJI_NUM));
         flg.push(Validation.hazureNum(HAZURE_NUM));

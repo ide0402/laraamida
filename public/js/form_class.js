@@ -65,34 +65,34 @@ class Form {
 
 class Validation {
 
-    static password()
-    {
-        const PASS = document.getElementById('pass');
-        const PASS_CONFIRM = document.getElementById('pass_confirm');
-        const PASS_MESSAGE_AREA = document.getElementById('pass_message_area');
-        let password_class_name = {Normal:'pass', Error:'pass_err'};
-        let password_errcheck_class_name = {OK:'pass_err_check_ok', NG:'pass_err_check_ng'};
+    // static password()
+    // {
+    //     const PASS = document.getElementById('pass');
+    //     const PASS_CONFIRM = document.getElementById('pass_confirm');
+    //     const PASS_MESSAGE_AREA = document.getElementById('pass_message_area');
+    //     let password_class_name = {Normal:'pass', Error:'pass_err'};
+    //     let password_errcheck_class_name = {OK:'pass_err_check_ok', NG:'pass_err_check_ng'};
 
-        if (PASS.value.length < 4){
-            PASS.className = password_class_name['Error'];
-            PASS_CONFIRM.className = password_class_name['Error'];
-            PASS_MESSAGE_AREA.className = password_errcheck_class_name['NG'];
-            PASS_MESSAGE_AREA.innerText = this.message('password_text_length');
-            return false;         
-        } else if (PASS_CONFIRM.value != '' && PASS.value != PASS_CONFIRM.value) {
-            PASS.className = password_class_name['Error'];
-            PASS_CONFIRM.className = password_class_name['Error'];
-            PASS_MESSAGE_AREA.className = password_errcheck_class_name['NG'];
-            PASS_MESSAGE_AREA.innerText = this.message('password_match');
-            return false;
-        } else {
-            PASS.className = password_class_name['Normal'];
-            PASS_CONFIRM.className = password_class_name['Normal'];
-            PASS_MESSAGE_AREA.className = password_errcheck_class_name['OK'];
-            PASS_MESSAGE_AREA.innerText = '';
-            return true;
-        }
-    }
+    //     if (PASS.value.length < 4){
+    //         PASS.className = password_class_name['Error'];
+    //         PASS_CONFIRM.className = password_class_name['Error'];
+    //         PASS_MESSAGE_AREA.className = password_errcheck_class_name['NG'];
+    //         PASS_MESSAGE_AREA.innerText = this.message('password_text_length');
+    //         return false;         
+    //     } else if (PASS_CONFIRM.value != '' && PASS.value != PASS_CONFIRM.value) {
+    //         PASS.className = password_class_name['Error'];
+    //         PASS_CONFIRM.className = password_class_name['Error'];
+    //         PASS_MESSAGE_AREA.className = password_errcheck_class_name['NG'];
+    //         PASS_MESSAGE_AREA.innerText = this.message('password_match');
+    //         return false;
+    //     } else {
+    //         PASS.className = password_class_name['Normal'];
+    //         PASS_CONFIRM.className = password_class_name['Normal'];
+    //         PASS_MESSAGE_AREA.className = password_errcheck_class_name['OK'];
+    //         PASS_MESSAGE_AREA.innerText = '';
+    //         return true;
+    //     }
+    // }
 
     static text(max_length,target_field, message_field, molecule_field)
     {
@@ -188,12 +188,12 @@ class Validation {
     static message(err_type)
     {
         switch (err_type){
-            case 'password_text_length':
-                return '※4文字以上の半角英数字で入力してください。';
-                break;
-            case 'password_match':
-                return '※パスワードが一致していません。';
-                break;
+            // case 'password_text_length':
+            //     return '※4文字以上の半角英数字で入力してください。';
+            //     break;
+            // case 'password_match':
+            //     return '※パスワードが一致していません。';
+            //     break;
             case 'text_length':
                 return '※文字数がオーバーしています。';
                 break;
@@ -223,6 +223,7 @@ class Calculate {
 
     static calcRemainingKuji(radio_option = '', HAZURE_NUM)
     {
+        const HAZURE = document.getElementById('hazure');
         let kuji_num = document.getElementById('kuji_num').value;
         let atari_total_num = 0;
         let atari_items_num;
@@ -240,6 +241,7 @@ class Calculate {
                 break;
         }
         HAZURE_NUM.value = kuji_num - atari_total_num;
+        HAZURE.value = HAZURE_NUM.value;
         HAZURE_NUM.innerText = HAZURE_NUM.value + '本'
         if (HAZURE_NUM.value < 0){
             HAZURE_NUM.classList.add('text-red');

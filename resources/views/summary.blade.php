@@ -8,7 +8,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('/css/summary.css') }}">
 
         <!-- Styles -->
         <style>
@@ -24,63 +24,33 @@
     <body class="main">
         <div class="align-center">
             <div class="space"></div>
-            <div class="center">
-                <div class="header">
-                    <div class="space"></div>
-                    <div class="title">{{ $user->title }}</div>
-                    @if (isset ($user->manager_comment))
-                    <div class="space"></div>
-                    <div class="">
-                        <div class="parent">
-                            <img src="images/animal_penguin.png" class="message_icon">
-                            <span class="margin-left-10">{ メッセージ</span>
-                        </div>
-                        <div class="message_area">
-                            <div class="message">{{ $user->manager_comment }}</div>
-                        </div>
-                    </div>
-                    @endif
-                </div>
-                <div class="space"></div>
-                <div class="parent">
-                    <div class="description_area">
-                        <div>※このあみだくじについて</div>
-                        <div>
-                            <span>現在このあみだくじは、「</span>
-                            <span id="publish_status"></span>
-                            <span>」です。</span>
-                            <div id="description"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="space"></div>
-            @if (isset($user->player) && $user->player->publish_flg)
             <div class="parent">
-                <div class="summary"><a href ="{{ route('summary', ['user' => $user->id]) }}" class="link">結果を集計</a></div>
+                <div>あみだくじの集計結果はこちらになります。</div>
             </div>
-            @endif
             <div class="space"></div>
-            <div id="amida_head">
-                <table id="amida_start">
+            <div>
+                <div class="parent">
+                    <img src="/images/animal_penguin.png" class="message_icon">
+                </div>
+            </div>
+            <div class="parent">
+                <table id="result">
+                    <tr>
+                        <th class="kuji_area">あたりくじ</th>
+                        <th class="name_area">名前</th>
+                    </tr>
+                    @foreach ($results as $result)
+                    <tr>
+                        <td>{{ $result['atari'] }}</th>
+                        <td>{{ $result['player'] }}</td>
+                    <tr>
+                    @endforeach
                 </table>
             </div>
-            <div class="amida_body">
-                <table id="amida_table">
-                </table>
-            </div>
-            <div id="amida_bottom">
-                <table id="amida_goal">
-                </table>
+            <div class="space"></div>
+            <div class="parent">
+                <div><a href ="{{ route('show', ['user' => $user->id]) }}" class="back">戻る</a></div>
             </div>
         </div>
-        <div class="space"></div>
-        <form  action="{{ route('register', ['user' => $user->id]) }}" method="post" id="form_player_name" name="form_player_name">
-            @csrf
-            <input type="hidden" name="player_name" id="player_name">
-            <input type="hidden" name="col_num" id="col_num">
-        </form>
-        <script src={{ asset('js/class.js') }}></script>
-        <script src={{ asset('js/main.js') }}></script>
     </body>
 </html>

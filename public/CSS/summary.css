@@ -1,0 +1,61 @@
+body {
+   background-color: #fafafa;
+}
+
+table {
+    /* margin: 0px auto; */
+    padding:5px;
+    border-collapse: collapse;
+    border-spacing: 0px;
+}
+
+th, td, tr {
+    border-spacing: 0px;
+    border:1px solid;
+    text-align: center;
+    padding: 5px;
+    margin:5px;
+}
+
+th {
+    background-color: #75A9FF;
+}
+
+.message_icon {
+    max-width:5%;
+    max-height:5%;
+}
+
+.kuji_area {
+    max-width: 40ch;
+    min-width: 20ch;
+}
+
+.name_area {
+    max-width: 80ch;
+    min-width: 40ch;
+}
+
+
+.align-center{
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    align-items: center;
+    text-align: center;
+}
+
+.space {
+    height:40px;
+}
+
+.parent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.back {
+    text-decoration: underline;
+    color: blue;
+}

@@ -23,6 +23,7 @@
     </head>
     <body>
         <div class="align_center">
+            <div class="space"></div>
             <form action="{{ route('store') }}" method="post" id="form_create" name="form_create">
                 @csrf
                 <div>あみだくじ設定内容</div>
@@ -37,31 +38,6 @@
                             <div class="count_num">
                                 <span id="title_length" class="molecule_black">0</span>
                                 <span>/20</span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr><th>管理用パスワード<span class="size_8px color_red">※</span></th></tr>
-                    <tr>
-                        <td id="pass_area">
-                            <div class="margin_left_5px">4文字以上の半角英数字で設定してください。</div>
-                            <div class="margin_left_5px">(くじの編集や結果の集計に必要になります。)</div>
-                            <div id="pass_message_area" class="err_message"></div>
-                            <input type="password" id="pass" class="pass" name="pass" value="" min="4" >
-                            <span id="pass_message_area" class="err_message"></span>
-                            <div class="margin_left_5px"><br>パスワードの再確認<br></div>
-                            <input type="password" id="pass_confirm" class="pass" name="pass_confirm" value="" min="4">
-                            <span id="pass_confirm_message_area" class="err_message"></span>
-                        </td>
-                    </tr>
-                    <tr><th>管理人メッセージ</th></tr>  
-                    <tr>
-                        <td>
-                            <div class="margin_left_5px">200文字以内で設定してください。(任意)</div>
-                            <div id="message_message_area" class="text-red"></div>
-                            <textarea class="message" rows="10" name="manager_comment" id="message"></textarea>
-                            <div class="count_num">
-                                <span id="message_length" class="molecule_black">0</span>
-                                <span>/200</span>
                             </div>
                         </td>
                     </tr>
@@ -84,7 +60,7 @@
                                 <div class="margin_left_5px">
                                     <div id="hazurenum_message_area" class="text-red"></div>
                                     <span>はずれくじの本数：</span>
-                                    <span class="hazure_num" name="hazure_num" id="hazure_num">本</span>
+                                    <span class="hazure_num" id="hazure_num">本</span>
                                     <div class="description">くじ本数・あたりくじの本数から自動で算出されます。<br>あみだくじの中では空白で表示されます。</div>
                                 </div>
                                 <div class="display_status margin_left_5px atari_detail_row display_off" data-isopen="false">
@@ -148,11 +124,25 @@
                             </div>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            <div class="margin_left_5px">200文字以内で設定してください。(任意)</div>
+                            <div id="message_message_area" class="text-red"></div>
+                            <textarea class="message" rows="10" name="manager_comment" id="message"></textarea>
+                            <div class="count_num">
+                                <span id="message_length" class="molecule_black">0</span>
+                                <span>/200</span>
+                            </div>
+                        </td>
+                    </tr>
                 </table>
+                <input type="hidden" name="hazure_num" id="hazure" value="">
                 <input type="hidden" name="atari_items_name" id="atari_items_name" value="">
                 <input type="hidden" name="atari_items_num" id="atari_items_num" value="">
+                <div class="space"></div> 
                 <input type="button" name="submit_button" class="button button--shadow" value="作成" id="submit_button"/>
             </form>
+            <div class="space"></div>
         </div>
         <script src={{ asset('js/form_class.js') }}></script>
         <script src={{ asset('js/form_main.js') }}></script>

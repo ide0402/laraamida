@@ -1,3 +1,7 @@
+body {
+   background-color: #fafafa;
+}
+
 table {
     margin: 0px auto;
     padding:0px;
@@ -9,12 +13,13 @@ td, tr {
     border-spacing: 0px;
     border-right:4px solid;
     border-left:4px solid;
+    text-align: center;
     padding: 0px;
     width:40px;
     height:40px;
 }
 
-#amida-icon table{
+#amida_head table{
     margin: 0px auto;
     padding:0;
     border-style:none;
@@ -22,7 +27,19 @@ td, tr {
     border-spacing: 0px;    
 }
 
-#amida-icon td, th {
+#amida_head tr {
+    margin: 0px;
+    padding:0;
+    border-spacing: 0px;
+    border-style:none;
+    text-align:center ;
+    width:40px;
+    height:25px;
+}
+
+#amida_head td, th {
+    margin: 0px;
+    padding:0;
     border-spacing: 0px;
     border-style:none;
     text-align:center ;
@@ -30,7 +47,33 @@ td, tr {
     height:40px;
 }
 
+#amida_bottom table{
+    margin: 0px auto;
+    padding:0;
+    border-style:none;
+    border-collapse: separate;
+    border-spacing: 0px;    
+}
 
+#amida_bottom tr {
+    margin: 0px;
+    padding:0;
+    border-spacing: 0px;
+    border-style:none;
+    text-align:center ;
+    width:40px;
+    height:25px;
+}
+
+#amida_bottom td, th {
+    margin: 0px;
+    padding:0;
+    border-spacing: 0px;
+    border-style:none;
+    text-align:center ;
+    width:40px;
+    height:25px;
+}
 
 td img {
     vertical-align: top;
@@ -43,7 +86,18 @@ td img {
     align-items: center;
 }
 
-.body{
+.space {
+    height:40px;
+}
+
+.title {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-size: 30px;
+}
+
+.amida_body{
     position: relative;
 }
 
@@ -63,10 +117,104 @@ td img {
     border-top:4px solid red;
 }
 
-.icon {
+/* .icon {
     width:auto;
     height:auto;
     max-width:50%;
     max-height:50%;
     cursor: pointer;
+} */
+
+.icon {
+    margin:2px;
+    width:auto;
+    height:auto;
+    /* max-width:50%;
+    max-height:50%; */
+    cursor: pointer;
+    color: #fff;
+    background: #668ad8;
+    border-radius: 10px;
+    font-size: 13px;
+    text-align: center;
+}
+
+.player {
+    width:auto;
+    height:auto;
+    font-size: 13px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.bottom {
+    width:auto;
+    height:auto;
+    font-size: 13px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.message_header {
+    width:40ch;
+    text-align: center;
+    align-items: center; 
+}
+
+.message_icon {
+    max-width:5%;
+    max-height:5%;
+}
+
+.message {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    white-space: pre-wrap;
+    display: inline-block;
+    align-items: center;
+    width:60ch;
+    border:1px solid;
+    border-color: #000000;
+}
+
+.message_area {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    align-items: center;
+}
+
+.inline-block{
+    display: inline-block;
+}
+
+.center{
+    text-align: center;
+}
+
+.margin-left-10{
+    margin-left: 10px;
+}
+
+.parent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text_red{
+    color: red;
+}
+
+.description_area{
+    text-align: center;
+    border:3px solid;
+    border-radius: 20px;
+    width:60ch;
+}
+
+.link{
+    text-decoration: underline;
+    color: blue;
 }

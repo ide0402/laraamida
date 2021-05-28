@@ -17,4 +17,6 @@ use App\Http\Controllers\AmidaController;
 Route::get('/', [AmidaController::class, 'index']);
 Route::get('/create', [AmidaController::class, 'create'])->name('create');
 Route::post('/create',[AmidaController::class, 'store'])->name('store');
-Route::get('/{user}', [AmidaController::class, 'showAmida']);
+Route::get('/{user}', [AmidaController::class, 'showAmida'])->name('show');
+Route::post('/{user}/register', [AmidaController::class, 'storePlayerName'])->name('register');
+Route::get('/{user}/summary', [AmidaController::class, 'aggregateResult'])->name('summary');
