@@ -1,13 +1,261 @@
-table {
+body {
+    background-color:white;
+}
+
+table.create-form {
     margin: 0px auto;
     padding:0px;
     border-collapse: collapse;
-    border-spacing: 0px;
+    /* border-spacing: 0px; */
 }
 
-td, tr {
-    border-spacing: 0px;
+table.create-form th {
+    border:2px solid;
+    background-color: #75A9FF;
+}
+
+table.create-form tr {
     border:2px solid;
     font-size: 12px;
     padding: 0px;
+}
+
+table.create-form td {
+    /* border-spacing: 0px; */
+    text-align: left;
+    border:2px solid;
+    font-size: 12px;
+    padding: 0px;
+}
+
+table.atari_detail_table{
+    border:none;
+    margin-left: 20px;
+}
+
+table.atari_detail_table tr{
+    border:none;
+}
+
+table.atari_detail_table th{
+    border:none;
+    background-color: white;
+}
+
+table.atari_detail_table td{
+    border:none;
+}
+
+table.item_bulk_table {
+    border:none
+}
+
+table.item_bulk_table tr{
+    border:none
+}
+
+table.item_bulk_table th{
+    border:none
+}
+
+table.item_bulk_table td{
+    border:none
+}
+
+.column {
+    border:2px solid;
+}
+
+.row {
+    border:2px solid;
+    padding: 0px;
+}
+
+.width-500px{
+    width:500px;
+}
+
+.margin_left_5px {
+    margin-left:5px;
+    margin-bottom: 0;
+}
+
+.margin_left_20px {
+    margin-left:20px;
+    margin-bottom: 0;
+}
+
+.margin_bottom_5px {
+    margin-bottom: 5px;
+}
+
+
+/* #create_atarikuji table, #create_atarikuji td, #create_atarikuji tr{
+    border:none;
+    text-align: left;
+}
+
+td.create_atarikuji {
+    border:none;
+}
+
+tr.create_atarikuji {
+    border:none;
+} */
+
+.align_center{
+    text-align: center;
+}
+
+.size_8px{
+    font-size: 8px;
+}
+
+.color_grey {
+    color: grey;
+}
+
+.color_red {
+    color: red;
+}
+
+.kuji_num {
+    margin:5px;
+    border:1px solid;
+    width:50px;
+}
+
+.title {
+    width:400px;
+    margin:5px;
+    border:1px solid;
+}
+
+.pass {
+    width:150px;
+    margin:5px;
+    border:1px solid;
+}
+
+.pass_err {
+    width:150px;
+    margin:5px;
+    border:1px solid;
+    border-color: red;
+}
+
+.pass_err_check_ok{
+    size:10px;
+    color:black;
+}
+
+.pass_err_check_ng{
+    size:10px;
+    color:red;
+}
+
+.bulk {
+    margin:5px;
+    border:1px solid;    
+}
+
+.message {
+    width:400px;
+    margin:5px;
+    border:1px solid;
+}
+
+.hazure_num {
+    margin:5px;
+    width:50px;
+}
+.remaining_kuji {
+    text-align: left;
+    width:50px;
+}
+
+.description {
+    color:grey;
+    font-size: 10px;
+    margin-left: 20px;
+}
+
+.display_on {
+    display: block;    
+}
+
+.display_off {
+    display: none;
+}
+
+.text-red {
+    color:red;
+}
+
+.atari_num {
+    border:1px solid;
+    width:50px;
+}
+
+.atari_types_num {
+    border:1px solid;
+    width:50px;
+}
+
+.atari_text {
+    border:1px solid;
+    width:150px;
+}
+
+.atari_num_head {
+    width:50px;
+}
+
+.atari_text_head {
+    width:150px;
+}
+
+/* .button {
+    box-shadow: 0 3px 0 #AAAAAA;
+    background-color: blue;
+    border-radius: 10px;
+    user-select: none;
+    cursor: pointer;
+
+} */
+
+.button {
+    font-size: 9px;
+    border-radius: 10px;
+    user-select: none;
+    cursor: pointer;
+    /* padding: 0.5em 1em; */
+    text-decoration: none;
+    background: #668ad8;/*ボタン色*/
+    color: #FFF;
+    border-bottom: solid 4px #627295;
+}
+
+.button:active {
+    margin-top: 3px;
+    color: #fff;
+    background: #668ad8;
+    border-bottom: solid 4px #627295;
+}
+
+.count_num {
+    font-size: 7px;
+    text-align: right;
+}
+
+.molecule_black {
+    color:black;
+}
+
+.molecule_red {
+    color:red;
+}
+
+.align_left {
+    text-align: left;
 }

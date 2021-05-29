@@ -1,36 +1,5 @@
 class Setting {
 
-    static setAmida(kuji_num, kuji_row)
-    {
-        let initial_array = [];
-        let initial_array_first_row = [];
-        // 最初の行はすべて0
-        for (let i = 0; i < kuji_num; i++){
-            initial_array_first_row.push(0);
-        }
-        initial_array.push(initial_array_first_row);
-        // 残り行数分作成
-        for (let i = 0; i < kuji_row - 1; i++){
-            initial_array.push(this.setAmidaColumn(kuji_num));            
-        }
-        return initial_array;
-    }
-
-    static setAmidaColumn(kuji_num)
-    {
-        let initial_array_per_row = [];
-        let rand_num
-        for (let i = 0; i < kuji_num; i++){
-            if (i > 0 && initial_array_per_row[i-1] == 1){
-                rand_num = 0;
-            } else {
-                rand_num = Math.floor(Math.random() * 2);
-            }
-            initial_array_per_row.push(rand_num);
-        };
-        return initial_array_per_row;
-    }
-
     static convertArrayToDOM(kuji_num,initial_array)
     {
         const TABLE_ICON = document.getElementById('amida_icon');
@@ -95,5 +64,29 @@ class Amida {
             i++;
         }
     }
+}
 
+class Form {
+
+    static calcRemainingKuji()
+    {
+        let remaining_kuji;
+        let kuji_num = document.getElementById('kuji_num').value;
+        let hazure_num = document.getElementById('hazure_num').value;
+        let atari_types_num = document.getElementById('atari_types_num').value;
+        let atari_total_num = 0;
+        if (atari_types_num > 0){
+            const ATARI_ITEMS_NUM = document.getElementsByClassName('atari_items_kuji');
+            for (let i = 0; i < ATARI_ITEMS_NUM.length; i++){
+                atari_total_num = atari_total_num + ATARI_ITEMS_NUM[i].value;
+            }
+        }
+        remaining_kuji = kuji_num - hazure_num - atari_total_num;
+        document.getElementById('remaining_kuji').value = remaining_kuji + '本';
+        if (remaining_kuji < 0){
+            document.getElementById('remaining_kuji').classList.add('text-red');
+        } else {
+            document.getElementById('remaining_kuji').classList.remove('text-red');
+        }
+    }
 }
