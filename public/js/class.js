@@ -2,16 +2,10 @@ class Setting {
 
     static convertArrayToDOM(kuji_num,initial_array)
     {
-        const TABLE_ICON = document.getElementById('amida_icon');
         const TABLE_AMIDA = document.getElementById('amida_table');
         const CELL_CLASSNAME_BLACK = 'top-black';
-        let table_icon_row = TABLE_ICON.insertRow(-1);
-
-        for (let i = 0; i <= kuji_num; i++){
-                let table_icon_cell = table_icon_row.insertCell(i);
-                table_icon_cell.innerText = i;
-                table_icon_cell.id = 'icon_col' + i;
-        }
+        
+        this.setAmidaStart(kuji_num);
         for (let i = 0; i < initial_array.length; i++){
             let table_row = TABLE_AMIDA.insertRow(-1);
             table_row.id = 'row' + i;
@@ -24,6 +18,68 @@ class Setting {
                 }
             } 
         }
+    }
+
+    static setAmidaStart(kuji_num)
+    {
+        const TABLE_ICON = document.getElementById('amida_start');
+        let table_icon_row = TABLE_ICON.insertRow(-1);
+        for (let i = 0; i < kuji_num; i++){
+            let table_icon_cell = table_icon_row.insertCell(i);
+            table_icon_cell.id = 'cell_col' + i;
+            const TABLE_ICON_CELL = document.getElementById(table_icon_cell.id);
+            if (player_field != '' && player_field[i] != ''){
+                this.fillPlayerName(TABLE_ICON_CELL, i);  
+            } else {
+                this.insertImg(TABLE_ICON_CELL, i);
+            }
+        }
+    }
+
+    static fillPlayerName(TABLE_ICON_CELL, col_num)
+    {
+        let div = document.createElement('div');
+        div.id = 'player_' + col_num;
+        div.className = 'player';
+        div.innerText = player_field[col_num];
+        TABLE_ICON_CELL.appendChild(div);
+    }
+
+    static insertImg(TABLE_ICON_CELL, col_num)
+    { 
+        // let img_icon = document.createElement('img');
+        // img_icon.src = 'images/icon.png';
+        // img_icon.id = 'icon_' + col_num;
+        // img_icon.className = 'icon';
+
+        let img_icon = document.createElement('div');
+        img_icon.src = 'images/icon.png';
+        img_icon.id = 'icon_' + col_num;
+        img_icon.className = 'icon';
+        img_icon.innerText = '選択';
+
+        TABLE_ICON_CELL.appendChild(img_icon);
+    }
+
+    static setAmidaGoal()
+    {
+        const TABLE_ICON = document.getElementById('amida_goal');
+        let table_icon_row = TABLE_ICON.insertRow(-1);
+        for (let i = 0; i < kuji_num; i++){
+            let table_icon_cell = table_icon_row.insertCell(i);
+            table_icon_cell.id = 'bottom_cell_col' + i;
+            const TABLE_ICON_CELL = document.getElementById(table_icon_cell.id);
+            let div = document.createElement('div');
+            div.id = 'bottom_' + i;
+            div.className = 'bottom';
+            div.innerText = atari_array[i];
+            TABLE_ICON_CELL.appendChild(div);    
+        }
+    }
+
+    static aggregateResult()
+    {
+
     }
 }
 
@@ -48,8 +104,7 @@ class Amida {
             if (initial_array[i][present_col]){
                 document.getElementById('row' + i + 'col' + present_col).classList.add('border-top-red');                
                 present_col = present_col + 1;
-            }
-            else if (present_col -1 >= 0 && initial_array[i][present_col - 1]){
+            } else if (present_col -1 >= 0 && initial_array[i][present_col - 1]){
                 document.getElementById('row' + i + 'col' + (present_col - 1)).classList.add('border-top-red');
                 present_col = present_col - 1;
             }
@@ -66,27 +121,33 @@ class Amida {
     }
 }
 
-class Form {
-
-    static calcRemainingKuji()
+class Validation {
+    static playerName(player_name)
     {
-        let remaining_kuji;
-        let kuji_num = document.getElementById('kuji_num').value;
-        let hazure_num = document.getElementById('hazure_num').value;
-        let atari_types_num = document.getElementById('atari_types_num').value;
-        let atari_total_num = 0;
-        if (atari_types_num > 0){
-            const ATARI_ITEMS_NUM = document.getElementsByClassName('atari_items_kuji');
-            for (let i = 0; i < ATARI_ITEMS_NUM.length; i++){
-                atari_total_num = atari_total_num + ATARI_ITEMS_NUM[i].value;
-            }
-        }
-        remaining_kuji = kuji_num - hazure_num - atari_total_num;
-        document.getElementById('remaining_kuji').value = remaining_kuji + '本';
-        if (remaining_kuji < 0){
-            document.getElementById('remaining_kuji').classList.add('text-red');
+        let max_length = 10;
+        if (player_name > max_length){
+            alert(this.message('length'));
+            return false;
+        } else if (player_name == ''){
+            alert(this.message('null'));
+            return false;
+        } else if (player_field.includes(player_name)){
+            alert(this.message('duplicate'));
+            return false;
         } else {
-            document.getElementById('remaining_kuji').classList.remove('text-red');
+            return true;
+        }
+    }
+
+    static message(err_type)
+    {
+        switch (err_type){
+            case 'length':
+                return '表示名は20文字以内で入力してください。';
+            case 'null':
+                return '表示名に空白は使用できません。';
+            case 'duplicate':
+                return 'その名前はすでに使用されています。';
         }
     }
 }

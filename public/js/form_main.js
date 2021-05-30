@@ -67,7 +67,7 @@
     ATARI_TYPES_NUM.addEventListener('change', () => {
         let kuji_detail_data = KUJI_DETAIL_AREA.dataset;
         let atari_types_num = ATARI_TYPES_NUM.value;
-        if (atari_types_num < 1 || atari_types_num > 100){
+        if (atari_types_num < 1 || atari_types_num > 25){
             ATARI_TYPES_NUM.value = kuji_detail_data.atari_after;
             kuji_detail_data.atari_before = kuji_detail_data.atari_after;
         } else {
@@ -87,10 +87,10 @@
     })
 
     KUJI_NUM.addEventListener('change', () => {
-        if (KUJI_NUM.value < 0){
-            KUJI_NUM.value = 0;
-        } else if (KUJI_NUM.value > 100){
-            KUJI_NUM.value = 100;
+        if (KUJI_NUM.value < 2){
+            KUJI_NUM.value = 2;
+        } else if (KUJI_NUM.value > 25){
+            KUJI_NUM.value = 25;
         }
         Calculate.calcRemainingKuji(Form.getCheckedRadioButton(), HAZURE_NUM);
     })
@@ -115,8 +115,8 @@
                 ATARI_NUM.addEventListener('change', () => {
                     if (ATARI_NUM.value < 0){
                         ATARI_NUM.value = 0;
-                    } else if (ATARI_NUM.value > 100){
-                        ATARI_NUM.value = 100;
+                    } else if (ATARI_NUM.value > 24){
+                        ATARI_NUM.value = 24;
                     }
                     Calculate.calcRemainingKuji(radio_button_type, HAZURE_NUM);
                 }, true);
@@ -140,13 +140,13 @@
         }
     })
 
-    PASS.addEventListener('change', () => {
-        Validation.password();
-    })
+    // PASS.addEventListener('change', () => {
+    //     Validation.password();
+    // })
     
-    PASS_CONFIRM.addEventListener('change', () => {
-        Validation.password();    
-    })
+    // PASS_CONFIRM.addEventListener('change', () => {
+    //     Validation.password();    
+    // })
     
     CLOSE_BUTTON.addEventListener('click', () => {
         let checked_radio_button = Form.getCheckedRadioButton();
@@ -191,8 +191,8 @@
         let flg = [];
         flg.push(Validation.text(max_length['title'], TITLE, TITLE_MESSAGE_AREA, TITLE_LENGTH));
         flg.push(Validation.text(max_length['message'], MESSAGE, MESSAGE_MESSAGE_AREA, MESSAGE_LENGTH));
-        flg.push(Validation.password());
-        flg.push(Validation.radiobutton());
+        // // flg.push(Validation.password());
+        // flg.push(Validation.radiobutton());
         flg.push(Validation.kujiNum(KUJI_NUM));
         flg.push(Validation.hazureNum(HAZURE_NUM));
         if (Form.getCheckedRadioButton() == 'oneeach'){
@@ -212,6 +212,11 @@
         if (!flg.includes(false)){
             FORM_CREATE.submit();
         }
+
+
+
+        // FORM_CREATE.submit();
+
     })
 
 })()

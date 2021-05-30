@@ -8,11 +8,11 @@ use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Model;
 class User extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'kuji_num', 'pass', 'manager_comment'];
+    protected $fillable = ['kuji_num'];
 
-    public function items()
+    public function player()
     {
-        return $this->hasMany('App\Models\Item','users_id');
+        return $this->hasOne(Player::class);
     }
 
 }

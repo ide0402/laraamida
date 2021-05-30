@@ -18,9 +18,11 @@ class UsersTable extends Migration
         }
         Schema::create('users', function (Blueprint $table) {
             $table->uuid('id');
-            $table->string('pass');
+            $table->string('title')->default('あみだくじ');
             $table->integer('kuji_num');
-            $table->text('manager_comment');
+            $table->text('manager_comment')->nullable();
+            $table->binary('amida');
+            $table->binary('atari');
             $table->timestamps();
             $table->primary('id');
             $table->softDeletes();

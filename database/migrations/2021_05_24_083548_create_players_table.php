@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddAmidaToUsersTable extends Migration
+class CreatePlayersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,17 @@ class AddAmidaToUsersTable extends Migration
      */
     public function up()
     {
-        if (Schema::hasColumn('amida')) {
-            // カラムが存在していればリターン
+        if (Schema::hasTable('players')) {
             return;
         }
-        Schema::table('users', function (Blueprint $table) {
-            $table->binary('amida');  //カラム追加
+        Schema::create('players', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('user_id');
+            $table->binary('player_field');
+            $table->timestamps();
+            $table->softDeletes();
         });
+
     }
 
     /**
@@ -29,8 +33,6 @@ class AddAmidaToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('amida');  //カラムの削除
-        });
+        Schema::dropIfExists('players');
     }
 }

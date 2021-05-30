@@ -1,5 +1,5 @@
 body {
-    background-color:white;
+    background-color:#fafafa;
 }
 
 table.create-form {
@@ -39,7 +39,7 @@ table.atari_detail_table tr{
 
 table.atari_detail_table th{
     border:none;
-    background-color: white;
+    background-color: #fafafa;
 }
 
 table.atari_detail_table td{
@@ -69,6 +69,10 @@ table.item_bulk_table td{
 .row {
     border:2px solid;
     padding: 0px;
+}
+
+.space {
+    height:40px;
 }
 
 .width-500px{

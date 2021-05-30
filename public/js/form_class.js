@@ -65,35 +65,6 @@ class Form {
 
 class Validation {
 
-    static password()
-    {
-        const PASS = document.getElementById('pass');
-        const PASS_CONFIRM = document.getElementById('pass_confirm');
-        const PASS_MESSAGE_AREA = document.getElementById('pass_message_area');
-        let password_class_name = {Normal:'pass', Error:'pass_err'};
-        let password_errcheck_class_name = {OK:'pass_err_check_ok', NG:'pass_err_check_ng'};
-
-        if (PASS.value.length < 4){
-            PASS.className = password_class_name['Error'];
-            PASS_CONFIRM.className = password_class_name['Error'];
-            PASS_MESSAGE_AREA.className = password_errcheck_class_name['NG'];
-            PASS_MESSAGE_AREA.innerText = this.message('password_text_length');
-            return false;         
-        } else if (PASS_CONFIRM.value != '' && PASS.value != PASS_CONFIRM.value) {
-            PASS.className = password_class_name['Error'];
-            PASS_CONFIRM.className = password_class_name['Error'];
-            PASS_MESSAGE_AREA.className = password_errcheck_class_name['NG'];
-            PASS_MESSAGE_AREA.innerText = this.message('password_match');
-            return false;
-        } else {
-            PASS.className = password_class_name['Normal'];
-            PASS_CONFIRM.className = password_class_name['Normal'];
-            PASS_MESSAGE_AREA.className = password_errcheck_class_name['OK'];
-            PASS_MESSAGE_AREA.innerText = '';
-            return true;
-        }
-    }
-
     static text(max_length,target_field, message_field, molecule_field)
     {
         if (target_field.value.length > max_length){
@@ -124,7 +95,7 @@ class Validation {
     static kujiNum(KUJI_NUM){
         const KUJINUM_MESSAGE_AREA = document.getElementById('kujinum_message_area');
         let kuji_num_value = Number(KUJI_NUM.value);
-        if (!(1 < kuji_num_value && kuji_num_value <= 100 && Number.isInteger(kuji_num_value))){
+        if (!(1 < kuji_num_value && kuji_num_value <= 25 && Number.isInteger(kuji_num_value))){
             KUJINUM_MESSAGE_AREA.innerText = this.message('kuji_num');
             return false;
         } else {
@@ -135,7 +106,7 @@ class Validation {
 
     static hazureNum(HAZURE_NUM){
         const HAZURENUM_MESSAGE_AREA = document.getElementById('hazurenum_message_area');        
-        if (!(0 <= HAZURE_NUM.value && HAZURE_NUM.value <= 99 && Number.isInteger(HAZURE_NUM.value))){
+        if (!(0 <= HAZURE_NUM.value && HAZURE_NUM.value <= 24 && Number.isInteger(HAZURE_NUM.value))){
             HAZURENUM_MESSAGE_AREA.innerText = this.message('hazure_num');
             return false;
         } else {
@@ -148,7 +119,7 @@ class Validation {
     {
         const ATARI_TYPES_NUM_MESSAGE_AREA = document.getElementById('atari_types_num_message_area');
         let atari_types_num_value = Number(ATARI_TYPES_NUM.value);
-        if (!(1 <= atari_types_num_value && atari_types_num_value <= 100 && Number.isInteger(atari_types_num_value))){
+        if (!(1 <= atari_types_num_value && atari_types_num_value <= 25 && Number.isInteger(atari_types_num_value))){
             ATARI_TYPES_NUM_MESSAGE_AREA.innerText = this.message('atari_types_num');
             return false;
         } else {
@@ -159,41 +130,38 @@ class Validation {
 
     static atariText(target_field_value, message_field)
     {
+        let flg = true
         for (let i = 0; i < target_field_value.length; i++){
             if (target_field_value[i] == '' || target_field_value[i].length > 10){
                 message_field.innerText = this.message('atari_text');
-                return false;
+                flg = false;
                 break;
             } else {
                 message_field.innerText = '';
-                return true;
             }
         }
+        return flg;
     }
 
     static atariNum(target_field_value, message_field)
     {
+        let flg = true;
         for (let i = 0; i < target_field_value.length; i++){
-            if (!(Number(target_field_value[i]) >= 0 && Number(target_field_value[i]) <= 99 && target_field_value[i] != '' && Number.isInteger(Number(target_field_value[i])))){
+            console.log(target_field_value[i] != '');
+            if (!(Number(target_field_value[i]) >= 0 && Number(target_field_value[i]) <= 24 && target_field_value[i] != '' && Number.isInteger(Number(target_field_value[i])))){
                 message_field.innerText = this.message('atari_num');
-                return false;
-                break;
+                flg = false;
+                break;           
             } else {
                 message_field.innerText = '';
-                return true;
             }
         }
+        return flg;
     }
 
     static message(err_type)
     {
         switch (err_type){
-            case 'password_text_length':
-                return '※4文字以上の半角英数字で入力してください。';
-                break;
-            case 'password_match':
-                return '※パスワードが一致していません。';
-                break;
             case 'text_length':
                 return '※文字数がオーバーしています。';
                 break;
@@ -201,19 +169,19 @@ class Validation {
                 return '※いずれかにチェックをいれてください。';
                 break;
             case 'kuji_num':
-                return '※くじの本数は2本以上100本以下の整数で設定してください。';
+                return '※くじの本数は2本以上25本以下の整数で設定してください。';
                 break;
             case 'hazure_num':
-                return '※はずれくじの本数が0本以上99本以下の整数になるように\n　くじ本数・あたりくじの本数で調整してください。';
+                return '※はずれくじの本数が0本以上24本以下の整数になるように\n　くじ本数・あたりくじの本数で調整してください。';
                 break;
             case 'atari_types_num':
-                return '※あたりくじの種類は1以上100以下の整数で設定してください。';
+                return '※あたりくじの種類は1以上25以下の整数で設定してください。';
                 break;
             case 'atari_text':
                 return '※あたりくじの名前は10文字以下で設定してください。\n　(空欄不可)';
                 break;
             case 'atari_num':
-                return '※あたりくじの種類は0以上99以下の整数で設定してください。';
+                return '※あたりくじの本数は0以上24以下の整数で設定してください。';
                 break;                
         }
     }
@@ -223,6 +191,7 @@ class Calculate {
 
     static calcRemainingKuji(radio_option = '', HAZURE_NUM)
     {
+        const HAZURE = document.getElementById('hazure');
         let kuji_num = document.getElementById('kuji_num').value;
         let atari_total_num = 0;
         let atari_items_num;
@@ -240,6 +209,7 @@ class Calculate {
                 break;
         }
         HAZURE_NUM.value = kuji_num - atari_total_num;
+        HAZURE.value = HAZURE_NUM.value;
         HAZURE_NUM.innerText = HAZURE_NUM.value + '本'
         if (HAZURE_NUM.value < 0){
             HAZURE_NUM.classList.add('text-red');
@@ -376,14 +346,5 @@ class Oneeach {
             atari_text[i].value = '';
         }
     }
-
-    // static changeDisplayAtariField(status)
-    // {
-    //     const ATARI_DETAIL = document.getElementsByClassName('atari_detail_row');
-    //     for (let i = 0; i < ATARI_DETAIL.length; i++){
-    //         Form.switchDisplayStatus(ATARI_DETAIL[i], status);
-            
-    //     }
-    // }
 
 }
