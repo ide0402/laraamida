@@ -39,7 +39,7 @@ table.atari_detail_table tr{
 
 table.atari_detail_table th{
     border:none;
-    background-color: white;
+    background-color: #fafafa;
 }
 
 table.atari_detail_table td{

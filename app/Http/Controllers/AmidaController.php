@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\CreateRequest;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\User;
 use App\Models\Player;

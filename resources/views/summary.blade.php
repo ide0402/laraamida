@@ -36,7 +36,7 @@
             <div class="parent">
                 <table id="result">
                     <tr>
-                        <th class="kuji_area">あたりくじ</th>
+                        <th class="kuji_area">くじ種類</th>
                         <th class="name_area">名前</th>
                     </tr>
                     @foreach ($results as $result)

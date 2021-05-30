@@ -23,6 +23,17 @@
     </head>
     <body>
         <div class="align_center">
+            @foreach ($errors->all() as $error)
+            <div class="error">{{ $error }}</div>
+            @endforeach
+
+
+            @foreach ($errors->get('atari_num') as $messages)
+                @foreach ($messages as $message)
+            <div class="error">{{ $message }}</div>
+                @endforeach
+            @endforeach
+
             <div class="space"></div>
             <form action="{{ route('store') }}" method="post" id="form_create" name="form_create">
                 @csrf
@@ -54,8 +65,8 @@
                                 <div class="margin_left_5px">
                                     <div id="kujinum_message_area" class="text-red"></div>
                                     <span>くじの本数</span>
-                                    <input type="number" class="kuji_num" name="kuji_num" id="kuji_num" min="0" max="100">本
-                                    <span class="size_8px color_red">※ 最大100</span>
+                                    <input type="number" class="kuji_num" name="kuji_num" id="kuji_num" min="2" max="25" value="2">本
+                                    <span class="size_8px color_red">※ 最大25</span>
                                 </div>
                                 <div class="margin_left_5px">
                                     <div id="hazurenum_message_area" class="text-red"></div>
@@ -66,18 +77,20 @@
                                 <div class="display_status margin_left_5px atari_detail_row display_off" data-isopen="false">
                                     <div id="atari_types_num_message_area" class="text-red"></div>
                                     <span>あたりくじの種類：</span>
-                                    <input type="number" class="atari_types_num" name="atari_types_num" id="atari_types_num" min="1" max="100" value="1">種類
+                                    <input type="number" class="atari_types_num" name="atari_types_num" id="atari_types_num" min="1" max="25" value="1">種類
                                     <span class="size_8px color_red">※</span>
+                                    <div class="description">1以上25以下の整数を入力してください。<br>入力内容によって下記のあたりくじ詳細の欄が増減します。</div>
                                 </div>
                                 <div class="align_center margin_bottom_5px"><span><br><input type="button" value="閉じる" id="close_button" class="button button--shadow"></span></div>
                                 <div class="display_status margin_left_20px atari_detail_row display_off" data-isopen="false">
                                     <span>------------------------ あたりくじ詳細 ------------------------</span>
+                                    <div class="description">あたりくじの名前が自動で設定されています。<br>自分で設定したい場合は下記にチェックをいれてください。<br>あたりくじは10文字以内で入力してください。(空欄不可)</div>
                                     <div id="atariitem_name_message_area" class="text-red"></div>
                                     <div id="atariitem_num_message_area" class="text-red"></div>
                                 </div>
                                 <div class="display_status margin_left_20px atari_detail_row display_off" data-isopen="false">
                                     <input type="checkbox" id="checkbox_atari_name">あたりくじの名前を自分で作成
-                                    <div class="description">チェックを入れると現在入力されているあたりくじの値がクリアされます。</div>
+                                    <div class="description">チェックを入れると現在入力されているあたりくじの名前の値がクリアされます。</div>
                                 </div>
                                 <div class="display_status margin_left_20px atari_detail_row display_off" data-isopen="false">
                                     <table class="atari_detail_table" id="atari_detail_table">
@@ -101,6 +114,7 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                <div class="space"></div>
                                 <div id="option_bulk" class="display_status display_off" data-isopen="false">
                                     <table class="item_bulk_table">
                                         <tr>
