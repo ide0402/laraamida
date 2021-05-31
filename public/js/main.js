@@ -35,7 +35,7 @@
             if (evt.target.id.match(/icon/)) {
                 if (confirm('選択します。よろしいですか？\n※選択後に変更はできません。')){
                     let name = prompt('表示名を入力してください。(最大10文字)');
-                    if (Validation.playerName(name)){
+                    if (name != null && Validation.playerName(name)){
                         PLAYER_NAME.value = name;
                         COL_NUM.value = evt.target.id.replace(/[^0-9]/g, '');
                         FORM_PLAYER_NAME.submit();

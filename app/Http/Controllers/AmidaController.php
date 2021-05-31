@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateRequest;
+use App\Http\Requests\PlayerRequest;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\User;
 use App\Models\Player;
@@ -21,7 +22,7 @@ class AmidaController extends Controller
         return view('create');
     }
 
-    public function store(User $user, Request $request)
+    public function store(User $user, CreateRequest $request)
     {
         if (!is_null($request->title)){
             $user->title = $request->title;
@@ -31,11 +32,13 @@ class AmidaController extends Controller
         }
         $user->manager_comment = $request->manager_comment;
         $user->kuji_num = $request->kuji_num;
-        $user->amida = serialize($this->setAmida($request->kuji_num, 10));
+        $user->amida = serialize($this->convertAmidaInfoToArray($request->kuji_num, 10));
         if ($request->item == 'item_create_bulk'){
-            $atari = $this->setRandomAtariArray(explode(",", $request->atari_items_name), explode(",", $request->atari_items_num), $request->hazure_num);
+            $atari = $this->decideAtariPlacementByRandom(
+                explode(",", $request->atari_items_name), explode(",", $request->atari_items_num), $request->hazure_num
+            );
         } elseif ($request->item == 'item_create'){
-            $atari = $this->setRandomAtariArray($request->atari_name, $request->atari_num, $request->hazure_num);
+            $atari = $this->decideAtariPlacementByRandom($request->atari_name, $request->atari_num, $request->hazure_num);
         }
         $user->atari = serialize($atari);
         $user->save();
@@ -70,52 +73,8 @@ class AmidaController extends Controller
         ]);
     }
 
-    public function setAmida($kuji_num, $kuji_row)
-    {
-        $initial_array = [];
-        $initial_array_first_row = [];
-        // 最初の行はすべて0
-        for ($i = 0; $i < $kuji_num - 1; $i++){
-            array_push($initial_array_first_row,0);
-        }
-        array_push($initial_array, $initial_array_first_row);
-        // 残り行数分作成
-        for ($i = 0; $i < $kuji_row - 1; $i++){
-            array_push($initial_array, $this->setAmidaColumn($kuji_num));
-        }
-        return $initial_array;
-    }
 
-    public function setAmidaColumn($kuji_num)
-    {
-        $initial_array_per_row = [];
-        for ($i = 0; $i < $kuji_num - 1; $i++){
-            if ($i > 0 && $initial_array_per_row[$i-1] == 1){
-                $rand_num = 0;
-            } else {
-                $rand_num = mt_rand(0, 1);
-            }
-            array_push($initial_array_per_row, $rand_num);
-        };
-        return $initial_array_per_row;
-    }
-
-    public function setRandomAtariArray($atari_item_array, $atari_num_array, $hazure_num)
-    {
-        $atari_array = array();
-        for ($i = 0; $i < $hazure_num; $i++){
-            $atari_array[] = '';
-        }
-        for ($i = 0; $i < count($atari_item_array); $i++){
-            for ($j = 0; $j < $atari_num_array[$i]; $j++){
-                $atari_array[] = $atari_item_array[$i];
-            }
-        }
-        shuffle($atari_array);
-        return $atari_array;
-    }
-
-    public function storePlayerName(Request $request, User $user)
+    public function storePlayerName(PlayerRequest $request, User $user)
     {
         if (is_null($user->player)){
             $player_array = array();
@@ -150,6 +109,51 @@ class AmidaController extends Controller
         }
         $result_per_atari = $this->convertAmidaResultPerAtari(array_unique($atari_array), $result_per_player);
         return view('summary')->with(['results' => $result_per_atari, 'user' => $user]);
+    }
+
+    private function convertAmidaInfoToArray($kuji_num, $kuji_row)
+    {
+        $initial_array = [];
+        $initial_array_first_row = [];
+        // 最初の行はすべて0
+        for ($i = 0; $i < $kuji_num - 1; $i++){
+            array_push($initial_array_first_row,0);
+        }
+        array_push($initial_array, $initial_array_first_row);
+        // 残り行数分作成
+        for ($i = 0; $i < $kuji_row - 1; $i++){
+            array_push($initial_array, $this->convertAmidaInfoToArrayPerRow($kuji_num));
+        }
+        return $initial_array;
+    }
+
+    private function convertAmidaInfoToArrayPerRow($kuji_num)
+    {
+        $initial_array_per_row = [];
+        for ($i = 0; $i < $kuji_num - 1; $i++){
+            if ($i > 0 && $initial_array_per_row[$i-1] == 1){
+                $rand_num = 0;
+            } else {
+                $rand_num = mt_rand(0, 1);
+            }
+            array_push($initial_array_per_row, $rand_num);
+        };
+        return $initial_array_per_row;
+    }
+
+    private function decideAtariPlacementByRandom($atari_item_array, $atari_num_array, $hazure_num)
+    {
+        $atari_array = array();
+        for ($i = 0; $i < $hazure_num; $i++){
+            $atari_array[] = '';
+        }
+        for ($i = 0; $i < count($atari_item_array); $i++){
+            for ($j = 0; $j < $atari_num_array[$i]; $j++){
+                $atari_array[] = $atari_item_array[$i];
+            }
+        }
+        shuffle($atari_array);
+        return $atari_array;
     }
 
     private function checkPlayerNameFilled($player_array)
