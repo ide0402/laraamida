@@ -55,6 +55,11 @@
                 </div>
             </div>
             <div class="space"></div>
+            <div class="parent">
+                @foreach ($errors->all() as $error)
+                <div class="error">{{ $error }}</div>
+                @endforeach
+            </div>
             @if (isset($user->player) && $user->player->publish_flg)
             <div class="parent">
                 <div class="summary"><a href ="{{ route('summary', ['user' => $user->id]) }}" class="link">結果を集計</a></div>

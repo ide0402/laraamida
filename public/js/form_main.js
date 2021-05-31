@@ -1,8 +1,6 @@
 'use strict';
 
 (() => {
-    const PASS = document.getElementById('pass');
-    const PASS_CONFIRM = document.getElementById('pass_confirm');
     const ITEMS = document.getElementsByName('item');
     const KUJI_NUM = document.getElementById('kuji_num');
     const ITEM_BULK = document.getElementById('item_bulk');
@@ -191,8 +189,7 @@
         let flg = [];
         flg.push(Validation.text(max_length['title'], TITLE, TITLE_MESSAGE_AREA, TITLE_LENGTH));
         flg.push(Validation.text(max_length['message'], MESSAGE, MESSAGE_MESSAGE_AREA, MESSAGE_LENGTH));
-        // // flg.push(Validation.password());
-        // flg.push(Validation.radiobutton());
+        flg.push(Validation.radiobutton());
         flg.push(Validation.kujiNum(KUJI_NUM));
         flg.push(Validation.hazureNum(HAZURE_NUM));
         if (Form.getCheckedRadioButton() == 'oneeach'){
@@ -212,11 +209,6 @@
         if (!flg.includes(false)){
             FORM_CREATE.submit();
         }
-
-
-
-        // FORM_CREATE.submit();
-
     })
 
 })()

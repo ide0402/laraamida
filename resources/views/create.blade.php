@@ -23,21 +23,19 @@
     </head>
     <body>
         <div class="align_center">
-            @foreach ($errors->all() as $error)
-            <div class="error">{{ $error }}</div>
-            @endforeach
-
-
-            @foreach ($errors->get('atari_num') as $messages)
-                @foreach ($messages as $message)
-            <div class="error">{{ $message }}</div>
-                @endforeach
-            @endforeach
 
             <div class="space"></div>
             <form action="{{ route('store') }}" method="post" id="form_create" name="form_create">
                 @csrf
                 <div>あみだくじ設定内容</div>
+                @foreach ($errors->all() as $error)
+                <div class="error">{{ $error }}</div>
+                @endforeach
+                @foreach ($errors->get('atari_num') as $messages)
+                    @foreach ($messages as $message)
+                <div class="error">{{ $message }}</div>
+                    @endforeach
+                @endforeach
                 <div class="validation_message align_left" id="validation_message"></div>
                 <table class="create-form">
                     <tr><th>タイトル名</th></tr>
@@ -138,6 +136,7 @@
                             </div>
                         </td>
                     </tr>
+                    <tr><th>参加者へのメッセージ</th></tr>
                     <tr>
                         <td>
                             <div class="margin_left_5px">200文字以内で設定してください。(任意)</div>

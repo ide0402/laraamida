@@ -263,3 +263,7 @@ tr.create_atarikuji {
 .align_left {
     text-align: left;
 }
+
+.error{
+    color: red;
+}
