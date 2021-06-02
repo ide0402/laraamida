@@ -53,6 +53,16 @@
                         </div>
                     </div>
                 </div>
+                <div class="space"></div>
+                <div class="parent">
+                    <div>参加者への共有用URL</div>
+                </div>
+                <div class="parent">
+                    <input type="text" id="input_url" class="url" value="{{ url()->current() }}" readonly><input type="button" id="copy_button" class="copy_button" value="URLをコピー">
+                </div>
+                <div class="parent">
+                    <div id="copy_message"></div>
+                </div>
             </div>
             <div class="space"></div>
             <div class="parent">

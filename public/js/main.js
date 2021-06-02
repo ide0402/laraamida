@@ -7,6 +7,7 @@
     const PLAYER_NAME = document.getElementById('player_name');
     const PUBLISH_STATUS = document.getElementById('publish_status');
     const DESCRIPTION = document.getElementById('description');
+    const COPY_BUTTON = document.getElementById('copy_button');
 
     window.addEventListener('DOMContentLoaded', () => {
         Setting.convertArrayToDOM(kuji_num,amida_array);
@@ -46,4 +47,14 @@
             }
         })    
     }
+
+    COPY_BUTTON.addEventListener('click', ()=> {
+        const INPUT_URL = document.getElementById('input_url');
+        let range = document.createRange();
+        range.selectNode(INPUT_URL);
+        window.getSelection().addRange(range);
+        document.execCommand('copy');
+        alert('※コピーしました。');
+    })
+
 })()

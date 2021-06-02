@@ -6,6 +6,7 @@ table.create-form {
     margin: 0px auto;
     padding:0px;
     border-collapse: collapse;
+    width:536px;
     /* border-spacing: 0px; */
 }
 
@@ -130,7 +131,7 @@ tr.create_atarikuji {
 }
 
 .title {
-    width:400px;
+    width:500px;
     margin:5px;
     border:1px solid;
 }
@@ -164,7 +165,7 @@ tr.create_atarikuji {
 }
 
 .message {
-    width:400px;
+    width:500px;
     margin:5px;
     border:1px solid;
 }
@@ -266,4 +267,11 @@ tr.create_atarikuji {
 
 .error{
     color: red;
+}
+
+.bulk_description{
+    height:180px;
+    overflow: scroll;
+    border: #999999 1px solid;
+    overflow: hidden visible;
 }

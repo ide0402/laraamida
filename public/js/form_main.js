@@ -20,15 +20,43 @@
     const TITLE_MESSAGE_AREA = document.getElementById('title_message_area');
     const MESSAGE_LENGTH = document.getElementById('message_length');
     const MESSAGE_MESSAGE_AREA = document.getElementById('message_message_area');
+    const ATARI_ITEMS_NAME = document.getElementById('atari_items_name');
+    const ATARI_ITEMS_NUM = document.getElementById('atari_items_num');    
 
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('load', () => {
         const DISPLAY_STATUS = document.getElementsByClassName('display_status');
-        for (let i = 0; i < DISPLAY_STATUS.length; i++){
-            if (DISPLAY_STATUS[i].dataset.isopen == "true"){
-                Form.switchDisplayStatus(DISPLAY_STATUS[i], 'on');
+        let session_radiobutton = document.getElementsByClassName('session_radiobutton');
+        let session_isopen = document.getElementsByClassName('session_isopen');
+
+        if (sessionStorage.getItem('use_flg') != null && sessionStorage.getItem('use_flg')){
+            for (let i = 0; i < session_radiobutton.length; i++){
+                if (session_radiobutton[i].id == sessionStorage.getItem('radiobutton')){
+                    session_radiobutton[i].checked = true;
+                }
+            }    
+            let array_isopen = sessionStorage.getItem('isopen');
+            array_isopen = JSON.parse(sessionStorage.getItem('isopen'));
+    
+            for (let i = 0; i < session_isopen.length; i++){
+                session_isopen[i].dataset.isopen = array_isopen[i];
             }
+    
+            for (let i = 0; i < DISPLAY_STATUS.length; i++){
+                if (DISPLAY_STATUS[i].dataset.isopen == 'true'){
+                    Form.switchDisplayStatus(DISPLAY_STATUS[i], 'on');
+                }
+            }   
+            TITLE_LENGTH.innerText = TITLE.value.length;
+            Validation.text(max_length['title'], TITLE, TITLE_MESSAGE_AREA, TITLE_LENGTH);
+            MESSAGE_LENGTH.innerText = MESSAGE.value.length;
+            Validation.text(max_length['message'], MESSAGE, MESSAGE_MESSAGE_AREA, MESSAGE_LENGTH);
+            ITEM_BULK.value = Bulk.conevrtArrayToBulk(ATARI_ITEMS_NAME.value.split(','), ATARI_ITEMS_NUM.value.split(','));
         }
     })
+
+    window.addEventListener('beforeunload', function(e){
+        sessionStorage.clear();
+    });
 
     TITLE.addEventListener('change', () => {
         TITLE_LENGTH.innerText = TITLE.value.length;
@@ -40,17 +68,17 @@
         Validation.text(max_length['message'], MESSAGE, MESSAGE_MESSAGE_AREA, MESSAGE_LENGTH);
     })
 
-    MESSAGE.addEventListener('keydown', (evt) => {
+    ITEM_BULK.addEventListener('keydown', (evt) => {
         if (evt.key === 'Tab') {
             evt.preventDefault();
             let TAB = '\t';
-            let value = MESSAGE.value;
-            let sPos = MESSAGE.selectionStart;
-            let ePos = MESSAGE.selectionEnd;
+            let value = ITEM_BULK.value;
+            let sPos = ITEM_BULK.selectionStart;
+            let ePos = ITEM_BULK.selectionEnd;
             let result = value.slice(0, sPos) + TAB + value.slice(ePos);
             let cPos = sPos + TAB.length;
-            MESSAGE.value = result;
-            MESSAGE.setSelectionRange(cPos, cPos);
+            ITEM_BULK.value = result;
+            ITEM_BULK.setSelectionRange(cPos, cPos);
         }
     })
 
@@ -94,10 +122,7 @@
     })
 
     ITEM_BULK.addEventListener('change', () => {
-        const ATARI_ITEMS_NAME = document.getElementById('atari_items_name');
-        const ATARI_ITEMS_NUM = document.getElementById('atari_items_num');    
         let array_items = Bulk.convertBulkToArray(ITEM_BULK.value);
-
         array_items = Bulk.connectArrayWithKey(array_items);
         array_items = Bulk.separateItemFromNameAndNum(array_items);      
         ATARI_ITEMS_NAME.value = array_items.array_items_name;
@@ -138,14 +163,6 @@
         }
     })
 
-    // PASS.addEventListener('change', () => {
-    //     Validation.password();
-    // })
-    
-    // PASS_CONFIRM.addEventListener('change', () => {
-    //     Validation.password();    
-    // })
-    
     CLOSE_BUTTON.addEventListener('click', () => {
         let checked_radio_button = Form.getCheckedRadioButton();
         const ATARI_DETAIL = document.getElementsByClassName('atari_detail_row');
@@ -169,6 +186,7 @@
             Form.switchDisplayStatus(OPTION_BULK, KEY_NAME[0]);
             OPTION_BULK.dataset.isopen = true;
         }
+        KUJI_DETAIL_AREA.dataset.isopen = true;
     })
 
     SUBMIT_BUTTON.addEventListener('click', () => {
@@ -207,6 +225,8 @@
             flg.push(Validation.atariNum(target_array_num, ATARIITEM_NUM_BULK_MESSAGE_AREA));
         }
         if (!flg.includes(false)){
+            Form.storeDataTemporarily();
+            sessionStorage.setItem('use_flg', true);    
             FORM_CREATE.submit();
         }
     })

@@ -222,3 +222,21 @@ td img {
 .error{
     color: red;
 }
+
+.url {
+    border:1px solid;
+    width:400px;
+}
+
+.copy_button{
+    cursor: pointer;
+    color: #fff;
+    background: blue;
+    border-radius: 4px;
+    font-size: 10px;
+    text-align: center;
+}
+
+#copy_message {
+    font-size:12px;
+}

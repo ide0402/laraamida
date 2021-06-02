@@ -61,6 +61,23 @@ class Form {
                 break;
         }
     }
+
+    static storeDataTemporarily()
+    {
+        let session_radiobutton = document.getElementsByClassName('session_radiobutton');
+        let session_isopen = document.getElementsByClassName('session_isopen');
+        let isopen_flg = [];
+
+        for (let i = 0; i < session_radiobutton.length; i++){
+            if (session_radiobutton[i].checked){
+                sessionStorage.setItem('radiobutton', session_radiobutton[i].id);    
+            }
+        }
+        for (let i = 0; i < session_isopen.length; i++){
+            isopen_flg.push(session_isopen[i].dataset.isopen);
+        }
+        sessionStorage.setItem('isopen', JSON.stringify(isopen_flg));
+    }
 }
 
 class Validation {
@@ -252,6 +269,17 @@ class Bulk {
             new_array_items.push(array_item.split(','));
         });
         return new_array_items;
+    }
+
+    static conevrtArrayToBulk(atari_items_name, atari_items_num)
+    {
+        let item_bulk = '';
+        item_bulk = atari_items_name[0] + ',' + atari_items_num[0];
+        for (let i = 1; i < atari_items_name.length; i++){
+            console.log('a');
+            item_bulk = item_bulk + '\n' + atari_items_name[i] + ',' + atari_items_num[i];
+        }
+        return item_bulk;
     }
 
     static connectArrayWithKey(array_items)
