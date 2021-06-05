@@ -43,7 +43,7 @@
                         <td>
                             <div class="margin_left_5px">20文字以内で設定してください。(任意)</div>
                             <div id="title_message_area" class="text-red"></div>
-                            <input type="text" class="title" name ="title" value ="" id="title">
+                            <input type="text" class="title" name ="title" value="{{ old('title', '') }}" id="title">
                             <div class="count_num">
                                 <span id="title_length" class="molecule_black">0</span>
                                 <span>/20</span>
@@ -54,43 +54,45 @@
                     <tr>
                         <td>
                             <div id="option_message_area" class="text-red"></div>
-                            <input type="radio" id="item_create" class="item" name="item" value="item_create">一つずつ作成
+                            <input type="radio" id="item_create" class="item session_radiobutton" name="item" value="item_create">一つずつ作成
                             <div class="description">あたりくじの種類が少ない場合はこちらがおすすめです。</div>
-                            <input type="radio" id="item_create_bulk" class="item" name="item" value="item_create_bulk">一括作成
+                            <input type="radio" id="item_create_bulk" class="item session_radiobutton" name="item" value="item_create_bulk">一括作成
                             <div class="description">Excelやスプレッドシートからコピーしたデータを<br>貼り付けたい場合はこちらがおすすめです。</div>
-                            <div id="kuji_detail_area" class="display_status kuji_detail_area display_off" data-atari_before="1" data-atari_after="1" data-isopen="false">
+                            <div id="kuji_detail_area" class="display_status kuji_detail_area display_off session_isopen" data-atari_before="1" data-atari_after="1" data-isopen="false">
                                 <hr style="border:1px dotted #000000; margin:5px; ">
                                 <div class="margin_left_5px">
                                     <div id="kujinum_message_area" class="text-red"></div>
                                     <span>くじの本数</span>
-                                    <input type="number" class="kuji_num" name="kuji_num" id="kuji_num" min="2" max="25" value="2">本
+                                    <input type="number" class="kuji_num" name="kuji_num" id="kuji_num" min="2" max="25" value="{{ old('kuji_num', '2') }}">本
                                     <span class="size_8px color_red">※ 最大25</span>
                                 </div>
                                 <div class="margin_left_5px">
                                     <div id="hazurenum_message_area" class="text-red"></div>
                                     <span>はずれくじの本数：</span>
-                                    <span class="hazure_num" id="hazure_num">本</span>
+                                    <span class="hazure_num" id="hazure_num">{{ old('hazure_num', '1') }}本</span>
                                     <div class="description">くじ本数・あたりくじの本数から自動で算出されます。<br>あみだくじの中では空白で表示されます。</div>
                                 </div>
-                                <div class="display_status margin_left_5px atari_detail_row display_off" data-isopen="false">
+                                <div class="display_status margin_left_5px atari_detail_row display_off session_isopen" data-isopen="false">
                                     <div id="atari_types_num_message_area" class="text-red"></div>
                                     <span>あたりくじの種類：</span>
-                                    <input type="number" class="atari_types_num" name="atari_types_num" id="atari_types_num" min="1" max="25" value="1">種類
+                                    <input type="number" class="atari_types_num" name="atari_types_num" id="atari_types_num" min="1" max="25" value="{{ old('atari_types_num', '1') }}">種類
                                     <span class="size_8px color_red">※</span>
                                     <div class="description">1以上25以下の整数を入力してください。<br>入力内容によって下記のあたりくじ詳細の欄が増減します。</div>
                                 </div>
                                 <div class="align_center margin_bottom_5px"><span><br><input type="button" value="閉じる" id="close_button" class="button button--shadow"></span></div>
-                                <div class="display_status margin_left_20px atari_detail_row display_off" data-isopen="false">
-                                    <span>------------------------ あたりくじ詳細 ------------------------</span>
-                                    <div class="description">あたりくじの名前が自動で設定されています。<br>自分で設定したい場合は下記にチェックをいれてください。<br>あたりくじは10文字以内で入力してください。(空欄不可)</div>
+                                <div class="display_status margin_left_20px atari_detail_row display_off session_isopen" data-isopen="false">
+                                    <span>＜＜あたりくじ詳細＞＞</span>
                                     <div id="atariitem_name_message_area" class="text-red"></div>
                                     <div id="atariitem_num_message_area" class="text-red"></div>
                                 </div>
-                                <div class="display_status margin_left_20px atari_detail_row display_off" data-isopen="false">
+                                <div class="display_status margin_left_20px atari_detail_row display_off session_isopen" data-isopen="false">
                                     <input type="checkbox" id="checkbox_atari_name">あたりくじの名前を自分で作成
+                                    <div class="description">現在、あたりくじの名前は自動で設定されています。<br>自分で設定したい場合は下記にチェックをいれてください。</div>
                                     <div class="description">チェックを入れると現在入力されているあたりくじの名前の値がクリアされます。</div>
+                                    <div class="description">自分で設定する場合は、10文字以内で入力してください。(空欄不可)</div>
                                 </div>
-                                <div class="display_status margin_left_20px atari_detail_row display_off" data-isopen="false">
+                                <div class="display_status margin_left_20px atari_detail_row display_off session_isopen" data-isopen="false">
+                                    <div class="space20"></div>
                                     <table class="atari_detail_table" id="atari_detail_table">
                                         <thead>
                                             <tr>
@@ -105,20 +107,29 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @empty (old('atari_name'))
                                             <tr class="atari_detail_row" id="atari_row_0">
                                                 <td id="atari_text_0"><input type="text" name="atari_name[]" class="atari_text" value="○"></td>
                                                 <td id="atari_number_0"><input type="number" name="atari_num[]" class="atari_num" value="1"></td>
                                             </tr>
+                                            @else
+                                            @for ($i = 0; $i < count(old('atari_name')); $i++)
+                                            <tr class="atari_detail_row" id="{{ 'atari_row_' . $i }}">
+                                                <td id="{{ 'atari_text_' . $i }}"><input type="text" name="atari_name[]" class="atari_text" value="{{ old('atari_name.'.$i) }}"></td>
+                                                <td id="{{ 'atari_number_' . $i }}"><input type="number" name="atari_num[]" class="atari_num" value="{{ old('atari_num.'.$i) }}"></td>
+                                            </tr>
+                                            @endfor
+                                            @endempty
                                         </tbody>
                                     </table>
+                                    <div class="space20"></div>
                                 </div>
-                                <div class="space"></div>
-                                <div id="option_bulk" class="display_status display_off" data-isopen="false">
+                                <div id="option_bulk" class="display_status display_off session_isopen" data-isopen="false">
                                     <table class="item_bulk_table">
                                         <tr>
                                             <td colspan="2">
                                                 <div class="margin_left_5px align_center">
-                                                    <span>--------------------------------- 一括入力フィールド ---------------------------------</span>
+                                                    <span>--------------------------------- あたりくじ一括入力フィールド ---------------------------------</span>
                                                 </div>
                                                 <div class="margin_left_5px">
                                                     <div id="atariitem_name_bulk_message_area" class="text-red"></div>
@@ -128,7 +139,22 @@
                                         </tr>
                                         <tr>
                                             <td><textarea id="item_bulk" class="bulk" rows="10" name="item_bulk"></textarea></td>
-                                            <td>タブ区切りかカンマ区切りで<br>「あたりくじの名前,あたりくじの本数」<br>の順番になるように入力してください。<br>あたりくじが複数ある場合は<br>改行して同様に入力してください。<br>※Excelなどからコピーすると簡単に入力できます。<br><入力例><br>大吉,3<br>中吉,5<br>※この場合は大吉が3本、中吉が5本作成されます。<br>はずれ本数はくじ本数によって変動します。
+                                            <td>
+                                                <div class="bulk_description">
+                                                    <div>※入力方法</div>
+                                                    <div>「あたりくじの名前,あたりくじの本数」</div>
+                                                    <div>の順番になるように左の枠に入力してください。</div>
+                                                    <div>あたりくじが複数ある場合は</div>
+                                                    <div>改行して同様に入力してください。</div>
+                                                    <div>※エクセルからのペーストでも同様に入力できます。</div>
+                                                    <div><入力例:直接入力する場合></div>
+                                                    <img src="images/example_oneeach.png" class="message_icon">
+                                                    <div><入力例:エクセルからペーストする場合></div>
+                                                    <img src="images/example_bulk.png" class="message_icon">
+                                                    <div>　上の図のような形でコピーして左の枠にペーストしてください。</div>
+                                                    <div><br>※上記の例では大吉が3本・中吉が5本作成されます。</div>
+                                                    <div>　はずれくじの本数はくじ本数によって変動します。</div>
+                                                </div>
                                             </td>
                                         </tr>
                                     </table>                           
@@ -141,7 +167,7 @@
                         <td>
                             <div class="margin_left_5px">200文字以内で設定してください。(任意)</div>
                             <div id="message_message_area" class="text-red"></div>
-                            <textarea class="message" rows="10" name="manager_comment" id="message"></textarea>
+                            <textarea class="message" rows="10" name="manager_comment" id="message" value="">{{ old('manager_comment', '') }}</textarea>
                             <div class="count_num">
                                 <span id="message_length" class="molecule_black">0</span>
                                 <span>/200</span>
@@ -149,13 +175,14 @@
                         </td>
                     </tr>
                 </table>
-                <input type="hidden" name="hazure_num" id="hazure" value="">
-                <input type="hidden" name="atari_items_name" id="atari_items_name" value="">
-                <input type="hidden" name="atari_items_num" id="atari_items_num" value="">
+                <input type="hidden" name="hazure_num" id="hazure" value="{{ old('hazure_num', '') }}">
+                <input type="hidden" name="atari_items_name" id="atari_items_name" value="{{ old('atari_items_name', '') }}">
+                <input type="hidden" name="atari_items_num" id="atari_items_num" value="{{ old('atari_items_num', '') }}">
                 <div class="space"></div> 
-                <input type="button" name="submit_button" class="button button--shadow" value="作成" id="submit_button"/>
+                <input type="button" name="submit_button" class="button button--shadow" value="あたりくじを作成する" id="submit_button"/>
             </form>
             <div class="space"></div>
+            <div><a href ="{{ route('top') }}" class="link margin20">TOPに戻る</a></div>
         </div>
         <script src={{ asset('js/form_class.js') }}></script>
         <script src={{ asset('js/form_main.js') }}></script>

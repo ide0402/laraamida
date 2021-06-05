@@ -1,0 +1,42 @@
+body {
+    background-color:#fafafa;
+    text-align: center;
+}
+
+.parent{
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+/* .child{
+    margin-left: auto;
+    margin-right: auto;
+    width:600px;
+} */
+
+.use{
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid;
+    border-radius: 20px;
+    width:650px;
+    padding:10px;
+}
+
+.align_center{
+    text-align: center;
+}
+
+.space {
+    height:40px;
+}
+
+.link{
+    text-decoration: underline;
+    color: blue;
+}
+
+.textalign_left{
+    text-align: left;
+}

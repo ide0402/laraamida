@@ -53,6 +53,16 @@
                         </div>
                     </div>
                 </div>
+                <div class="space"></div>
+                <div class="parent">
+                    <div>参加者への共有用URL</div>
+                </div>
+                <div class="parent">
+                    <input type="text" id="input_url" class="url" value="{{ url()->current() }}" readonly><input type="button" id="copy_button" class="copy_button" value="URLをコピー">
+                </div>
+                <div class="parent">
+                    <div id="copy_message"></div>
+                </div>
             </div>
             <div class="space"></div>
             <div class="parent">
@@ -66,20 +76,27 @@
             </div>
             @endif
             <div class="space"></div>
-            <div id="amida_head">
-                <table id="amida_start">
-                </table>
-            </div>
-            <div class="amida_body">
-                <table id="amida_table">
-                </table>
-            </div>
-            <div id="amida_bottom">
-                <table id="amida_goal">
-                </table>
+            <div class="amida_all">
+                <div id="amida_head">
+                    <table id="amida_start">
+                    </table>
+                </div>
+                <div class="amida_body">
+                    <table id="amida_table" class="amida_table">
+                    </table>
+                </div>
+                <div id="amida_bottom">
+                    <table id="amida_goal">
+                    </table>
+                </div>
             </div>
         </div>
         <div class="space"></div>
+        <div class="space"></div>
+        <div class="parent">
+            <span><a href ="{{ route('top') }}" class="link margin20">TOPに戻る</a></span>
+            <span><a href ="{{ route('create') }}" class="link margin20">新しくあみだくじを作成</a></span>
+        </div>
         <form  action="{{ route('register', ['user' => $user->id]) }}" method="post" id="form_player_name" name="form_player_name">
             @csrf
             <input type="hidden" name="player_name" id="player_name">
