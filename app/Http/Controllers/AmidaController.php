@@ -33,13 +33,7 @@ class AmidaController extends Controller
         $user->manager_comment = $request->manager_comment;
         $user->kuji_num = $request->kuji_num;
         $user->amida = serialize($this->convertAmidaInfoToArray($request->kuji_num, 10));
-        if ($request->item == 'item_create_bulk'){
-            $atari = $this->decideAtariPlacementByRandom(
-                explode(",", $request->atari_items_name), explode(",", $request->atari_items_num), $request->hazure_num
-            );
-        } elseif ($request->item == 'item_create'){
-            $atari = $this->decideAtariPlacementByRandom($request->atari_name, $request->atari_num, $request->hazure_num);
-        }
+        $atari = $this->decideAtariPlacementByRandom($request->atari_name, $request->atari_num, $request->hazure_num);
         $user->atari = serialize($atari);
         $user->save();
         return redirect('/'. $user->id);
@@ -97,6 +91,7 @@ class AmidaController extends Controller
     public function aggregateResult(User $user)
     {
         $atari_array = unserialize($user->atari);
+        $atari_array = array_map(function($v){return $v==='' ? '(はずれ)' : $v;}, $atari_array);
         $amida_array = unserialize($user->amida);
         $player_array = unserialize($user->player->player_field);
         $result_per_player = [];

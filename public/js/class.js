@@ -9,14 +9,19 @@ class Setting {
         for (let i = 0; i < initial_array.length; i++){
             let table_row = TABLE_AMIDA.insertRow(-1);
             table_row.id = 'row' + i;
+            let side = table_row.insertCell(-1);
+            side.id = 'side';
             for (let j = 0; j < initial_array[i].length; j++){
-                let table_row_cell = table_row.insertCell(j);
+                let table_row_cell = table_row.insertCell(-1);
                 table_row_cell.id = 'row' + i + 'col' + j;
                 table_row_cell.className = 'amida_cell';
+                table_row_cell.colSpan = 2;
                 if (initial_array[i][j]){
                     table_row_cell.classList.add(CELL_CLASSNAME_BLACK);
                 }
-            } 
+            }
+            side = table_row.insertCell(-1);
+            side.id = 'side';
         }
     }
 
@@ -75,11 +80,6 @@ class Setting {
             div.innerText = atari_array[i];
             TABLE_ICON_CELL.appendChild(div);    
         }
-    }
-
-    static aggregateResult()
-    {
-
     }
 }
 

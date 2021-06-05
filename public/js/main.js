@@ -18,7 +18,7 @@
         } else {
             PUBLISH_STATUS.innerText = '未公開';
             PUBLISH_STATUS.classList.add('text_red');
-            DESCRIPTION.innerText = 'すべてのくじが選択されると、自動で公開されます。';
+            DESCRIPTION.innerText = '「選択」ボタンをおして、名前を登録してください。\nすべてのくじが選択されると、あたりくじの位置が表示され、\n結果を確認することができるようになります。';
         }
     })
     

@@ -8,7 +8,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="{{ asset('/css/create.css') }}">
+        <link rel="stylesheet" href="{{ asset('/css/top.css') }}">
 
         <!-- Styles -->
         <style>
@@ -22,6 +22,34 @@
         </style>
     </head>
     <body>
-        <div class="align-center"><a href="/create">作成</a></div>
+        <div class="parent">
+            <div class="space"></div>
+            <div class="child">あみだくじ作成ツール</div>
+            <div class="space"></div>
+            <div class="child">＜＜使い方＞＞</div>
+            <div class="use">
+                <div class="textalign_left child">
+                    <div>
+                        <span>①：「</span>
+                        <span>
+                            <a href ="{{ route('create') }}" class="link margin20">あみだくじを作成</a>
+                        </span>
+                        <span>」より、あみだくじに関する情報を入力してください。</span>
+                    </div>
+                    <div>　　※作成あみだくじは30日後に自動で削除されます。</div>
+                    <div>②：あみだくじ作成後、<br>　「選択」ボタンを押して、画面に表示される名前を入力してください。</div>
+                    <div>③：すべてのくじが選択されるとくじの結果が確認できるようになります。</div>
+                    <div>　　※結果は参加者ごとでも、あたりくじごとでも確認できます。</div>
+                </div>
+            </div>
+            <div class="space"></div>
+            <div class="child">
+                <div>＜＜フォーム入力例＞＞</div>
+                <div>
+                    <span><img src="images/example_form1.png" class=""></span>
+                    <span><img src="images/example_form2.png" class=""></span>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

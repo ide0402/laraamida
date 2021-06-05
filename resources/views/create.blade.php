@@ -81,16 +81,18 @@
                                 </div>
                                 <div class="align_center margin_bottom_5px"><span><br><input type="button" value="閉じる" id="close_button" class="button button--shadow"></span></div>
                                 <div class="display_status margin_left_20px atari_detail_row display_off session_isopen" data-isopen="false">
-                                    <span>--------------------------------- あたりくじ詳細 ---------------------------------</span>
-                                    <div class="description">あたりくじの名前が自動で設定されています。<br>自分で設定したい場合は下記にチェックをいれてください。<br>あたりくじは10文字以内で入力してください。(空欄不可)</div>
+                                    <span>＜＜あたりくじ詳細＞＞</span>
                                     <div id="atariitem_name_message_area" class="text-red"></div>
                                     <div id="atariitem_num_message_area" class="text-red"></div>
                                 </div>
                                 <div class="display_status margin_left_20px atari_detail_row display_off session_isopen" data-isopen="false">
                                     <input type="checkbox" id="checkbox_atari_name">あたりくじの名前を自分で作成
+                                    <div class="description">現在、あたりくじの名前は自動で設定されています。<br>自分で設定したい場合は下記にチェックをいれてください。</div>
                                     <div class="description">チェックを入れると現在入力されているあたりくじの名前の値がクリアされます。</div>
+                                    <div class="description">自分で設定する場合は、10文字以内で入力してください。(空欄不可)</div>
                                 </div>
                                 <div class="display_status margin_left_20px atari_detail_row display_off session_isopen" data-isopen="false">
+                                    <div class="space20"></div>
                                     <table class="atari_detail_table" id="atari_detail_table">
                                         <thead>
                                             <tr>
@@ -120,6 +122,7 @@
                                             @endempty
                                         </tbody>
                                     </table>
+                                    <div class="space20"></div>
                                 </div>
                                 <div id="option_bulk" class="display_status display_off session_isopen" data-isopen="false">
                                     <table class="item_bulk_table">
@@ -179,6 +182,7 @@
                 <input type="button" name="submit_button" class="button button--shadow" value="あたりくじを作成する" id="submit_button"/>
             </form>
             <div class="space"></div>
+            <div><a href ="{{ route('top') }}" class="link margin20">TOPに戻る</a></div>
         </div>
         <script src={{ asset('js/form_class.js') }}></script>
         <script src={{ asset('js/form_main.js') }}></script>

@@ -124,7 +124,7 @@
     ITEM_BULK.addEventListener('change', () => {
         let array_items = Bulk.convertBulkToArray(ITEM_BULK.value);
         array_items = Bulk.connectArrayWithKey(array_items);
-        array_items = Bulk.separateItemFromNameAndNum(array_items);      
+        array_items = Bulk.separateItemFromNameAndNum(array_items);    
         ATARI_ITEMS_NAME.value = array_items.array_items_name;
         ATARI_ITEMS_NUM.value = array_items.array_items_num;
         Calculate.calcRemainingKuji(Form.getCheckedRadioButton(), HAZURE_NUM);

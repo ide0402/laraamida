@@ -261,9 +261,9 @@ class Bulk {
     {
         let array_items = [];
         let new_array_items = [];
-        item_bulk.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
-        item_bulk.replace(/\t/g, ',');
-        array_items = item_bulk.split('\n');
+        item_bulk = item_bulk.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+        item_bulk = item_bulk.replace(/\t/g, ",");
+        array_items = item_bulk.split("\n");
         array_items = array_items.filter(elm => elm !== '');
         array_items.forEach((array_item) => {
             new_array_items.push(array_item.split(','));
