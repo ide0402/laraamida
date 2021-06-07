@@ -4,8 +4,7 @@ body {
 }
 
 .amida_all {
-    max-width: 860px;
-    min-width: 50px;
+    width: 1000px;
     margin-left: auto;
     margin-right: auto;
 
@@ -15,13 +14,20 @@ body {
 }
 
 table {
-    width: 100%;
+    /* width:auto; */
+    max-width: 1000px;
+    min-width: 400px;
     table-layout: fixed;
     margin: 0px auto;
     padding:0px;
     border: none;
     border-collapse: collapse;
     border-spacing: 0px;
+}
+
+tr {
+    margin-left: auto;
+    margin-right: auto;
 }
 
 td {
@@ -33,7 +39,14 @@ td {
     /* width:40px; */
     height:40px;
 
+    /* %指定でもいいかもね */
     max-width:100px;
+    min-width:20px;
+}
+
+td[colspan="2"] {
+    max-width:200px;
+    min-width:40px;
 }
 
 /* #amida_table tr, td, th {
@@ -41,7 +54,7 @@ td {
 } */
 
 #amida_head table{
-    margin: 0px auto;
+    /* margin: 0px auto; */
     padding:0;
     border-style:none;
     border-collapse: separate;
@@ -56,8 +69,6 @@ td {
     text-align:center ;
     /* width:40px; */
     height:25px;
-
-    max-width:100px;
 }
 
 #amida_head td, th {
@@ -70,11 +81,13 @@ td {
     height:40px;
     align-items: center;
 
-    max-width:100px;
+    max-width:200px;
+    min-width:40px;
+
 }
 
 #amida_bottom table{
-    margin: 0px auto;
+    /* margin: 0px auto; */
     padding:0;
     border-style:none;
     border-collapse: separate;
@@ -100,7 +113,9 @@ td {
     /* width:40px; */
     height:25px;
 
-    max-width:100px;
+    max-width:200px;
+    min-width:40px;
+
 }
 
 td img {
