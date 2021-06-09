@@ -8,7 +8,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="{{ mix('/CSS/top.css') }}">
+        <link rel="stylesheet" href="{{ asset('/CSS/top.css') }}">
 
         <!-- Styles -->
         <style>
@@ -44,17 +44,25 @@
             </div>
             <div class="space"></div>
             <div class="child">
-                <div>＜＜フォーム入力例＞＞</div>
-                <div>
-                    <span>(あたりくじを一つずつ入力する場合)</span>
-                    <span>(あたりくじをExcelなどからコピペする場合)</span>
-                </div>
-
-                <div>
-                    <span><img src="images/example_form1.png" class=""></span>
-                    <span><img src="images/example_form2.png" class=""></span>
+                <div>＜＜完成図イメージ＞＞</div>
+                <div class>
+                    <div class="border"><img src="images/example_amida.png" class="image_example"></div>
                 </div>
             </div>
+            <div class="space"></div>
+            <div class="child">
+                <div>◎くじごとの結果もらくらく集計</div>
+                <div class>
+                    <div class="border"><img src="images/example_amida_summary.png" class="image_example"></div>
+                </div>
+            </div>
+            <div class="space"></div>
+            <div class="child">
+                <div class>
+                    <a href ="{{ route('create') }}" class="link margin20">あみだくじを作成</a>
+                </div>
+            </div>
+            <div class="space"></div>
         </div>
     </body>
 </html>
