@@ -15,4 +15,13 @@ class User extends Model
         return $this->hasOne(Player::class);
     }
 
+    public static function boot(): void
+    {
+        parent::boot();
+
+        static::deleting(function($user){
+            $user->player()->delete();
+        });
+    }
+
 }
