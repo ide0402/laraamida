@@ -13,8 +13,9 @@ use App\Http\Controllers\AmidaController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', [AmidaController::class, 'index'])->name('top');
+Route::group(['middleware' => 'basicauth'], function() {
+    Route::get('/', [AmidaController::class, 'index'])->name('top');
+});
 Route::get('/create', [AmidaController::class, 'create'])->name('create');
 Route::post('/create',[AmidaController::class, 'store'])->name('store');
 Route::get('/{user}', [AmidaController::class, 'showAmida'])->name('show');
