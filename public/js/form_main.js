@@ -21,7 +21,15 @@
     const MESSAGE_LENGTH = document.getElementById('message_length');
     const MESSAGE_MESSAGE_AREA = document.getElementById('message_message_area');
     const ATARI_ITEMS_NAME = document.getElementById('atari_items_name');
-    const ATARI_ITEMS_NUM = document.getElementById('atari_items_num');    
+    const ATARI_ITEMS_NUM = document.getElementById('atari_items_num');
+    const NAME_RANDOM_BUTTON = document.getElementById('name_random_button'); 
+    const PARTICIPANTS_RADIOBUTTON = document.getElementsByName('participant_radio');   
+    const KUJINUM_LENGTH = document.getElementById('kujinum_length');
+    const PARTICIPANT_NAME = document.getElementById('participant_name');
+    const PARTICIPANT_TEXT_MESSAGE_AREA = document.getElementById('participant_text_message_area');
+    const PARTICIPANT_NUM_MESSAGE_AREA = document.getElementById('participant_num_message_area');
+    const PARTICIPANT = document.getElementById('participant');
+    const PARTICIPANT_SELF = document.getElementById('participant_self');
 
     window.addEventListener('load', () => {
         const DISPLAY_STATUS = document.getElementsByClassName('display_status');
@@ -119,6 +127,12 @@
             KUJI_NUM.value = 25;
         }
         Calculate.calcRemainingKuji(Form.getCheckedRadioButton(), HAZURE_NUM);
+        KUJINUM_LENGTH.innerText = KUJI_NUM.value;
+        if (PARTICIPANT_NAME.value != ''){
+            let array_participant = Participant.separateParticipantTextToArray(PARTICIPANT_NAME.value);
+            Validation.participantNum(array_participant.length, KUJI_NUM.value, PARTICIPANT_TEXT_MESSAGE_AREA);
+            Validation.nameText(array_participant, PARTICIPANT_NUM_MESSAGE_AREA, 10);    
+        }
     })
 
     ITEM_BULK.addEventListener('change', () => {
@@ -180,11 +194,11 @@
         if (checked_radio_button == 'oneeach'){
             for (let i = 0; i < ATARI_DETAIL.length; i++){
                 Form.switchDisplayStatus(ATARI_DETAIL[i], KEY_NAME[0]);
-                ATARI_DETAIL[i].dataset.isopen = true;
+                // ATARI_DETAIL[i].dataset.isopen = true;
             }
         } else if (checked_radio_button == 'bulk'){
             Form.switchDisplayStatus(OPTION_BULK, KEY_NAME[0]);
-            OPTION_BULK.dataset.isopen = true;
+            // OPTION_BULK.dataset.isopen = true;
         }
         KUJI_DETAIL_AREA.dataset.isopen = true;
     })
@@ -200,6 +214,7 @@
         let ataris_text = document.getElementById('atari_items_name');
         const ATARIITEM_NUM_BULK_MESSAGE_AREA = document.getElementById('atariitem_num_bulk_message_area');
         let ataris_num = document.getElementById('atari_items_num');
+        let array_participant = Participant.separateParticipantTextToArray(PARTICIPANT_NAME.value);
 
         let target_array_name = [];
         let target_array_num = [];
@@ -210,25 +225,62 @@
         flg.push(Validation.radiobutton());
         flg.push(Validation.kujiNum(KUJI_NUM));
         flg.push(Validation.hazureNum(HAZURE_NUM));
+        if (!PARTICIPANT_SELF.checked){
+            flg.push(Validation.participantNum(array_participant.length, KUJI_NUM.value, PARTICIPANT_TEXT_MESSAGE_AREA));
+            flg.push(Validation.nameText(array_participant, PARTICIPANT_NUM_MESSAGE_AREA, 10));    
+        }
         if (Form.getCheckedRadioButton() == 'oneeach'){
             flg.push(Validation.atariTypesNum(ATARI_TYPES_NUM));
             for (let i = 0; i < atari_text.length; i++){
                 target_array_name.push(atari_text[i].value);
                 target_array_num.push(atari_num[i].value);
             }
-            flg.push(Validation.atariText(target_array_name, ATARIITEM_NAME_MESSAGE_AREA));
+            flg.push(Validation.nameText(target_array_name, ATARIITEM_NAME_MESSAGE_AREA, 10));
             flg.push(Validation.atariNum(target_array_num, ATARIITEM_NUM_MESSAGE_AREA));
         } else if (Form.getCheckedRadioButton() == 'bulk'){
             target_array_name = ataris_text.value.split(',');
             target_array_num = ataris_num.value.split(',');
-            flg.push(Validation.atariText(target_array_name, ATARIITEM_NAME_BULK_MESSAGE_AREA));
+            flg.push(Validation.nameText(target_array_name, ATARIITEM_NAME_BULK_MESSAGE_AREA, 10));
             flg.push(Validation.atariNum(target_array_num, ATARIITEM_NUM_BULK_MESSAGE_AREA));
         }
         if (!flg.includes(false)){
             Form.storeDataTemporarily();
             sessionStorage.setItem('use_flg', true);    
             FORM_CREATE.submit();
+        } else {
+            alert('入力内容に不備があります。再度入力内容をご確認ください。');
         }
+    })
+
+    PARTICIPANTS_RADIOBUTTON.forEach((participant_radiobutton) => {
+        const OPTION_PARTICIPANT = document.getElementById('option_participant');
+        participant_radiobutton.addEventListener('click', (evt) => {
+            if (evt.target.value == 'self'){
+                Form.switchDisplayStatus(OPTION_PARTICIPANT, 'off')
+            } else {
+                Form.switchDisplayStatus(OPTION_PARTICIPANT, 'on')
+            }
+        });
+    });
+
+
+    NAME_RANDOM_BUTTON.addEventListener('click', ()=>{
+        let participant_name = document.getElementById('participant_name');
+        if (confirm('名前をランダムで生成します。よろしいですか？\n※現在入力されている名前はクリアされます。')){
+            participant_name.value ='';
+            participant_name.value = Participant.nameParticipantNameRandom(Number(KUJI_NUM.value));
+            let array_participant = Participant.separateParticipantTextToArray(PARTICIPANT_NAME.value);
+            PARTICIPANT.value = array_participant;
+            Validation.participantNum(array_participant.length, KUJI_NUM.value, PARTICIPANT_TEXT_MESSAGE_AREA);
+            Validation.nameText(array_participant, PARTICIPANT_NUM_MESSAGE_AREA, 10);    
+        } 
+    })
+
+    PARTICIPANT_NAME.addEventListener('change', () => {
+        let array_participant = Participant.separateParticipantTextToArray(PARTICIPANT_NAME.value);
+        PARTICIPANT.value = array_participant;
+        Validation.participantNum(array_participant.length, KUJI_NUM.value, PARTICIPANT_TEXT_MESSAGE_AREA);
+        Validation.nameText(array_participant, PARTICIPANT_NUM_MESSAGE_AREA, 10);
     })
 
 })()

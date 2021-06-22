@@ -24,7 +24,11 @@ class CreateRequest extends FormRequest
             'atari_items_name'    => 'required_if:item,item_create_bulk|array',
             'atari_items_name.*'  => 'max:10|min:1',
             'atari_items_num'    => 'required_if:item,item_create_bulk|array',
-            'atari_items_num.*'  => 'integer|max:24|min:0',            
+            'atari_items_num.*'  => 'integer|max:24|min:0',
+            
+            'participant'    => 'required_if:participant_radio,kuji_auto|required_if:participant_radio,auto|array',
+            'participant.*'  => 'max:10|min:1',
+
         ];
     }
 
@@ -72,6 +76,7 @@ class CreateRequest extends FormRequest
         $this->merge([
             'atari_items_name' => explode(",", $this->atari_items_name),
             'atari_items_num'  => explode(",", $this->atari_items_num),
+            'participant'      => explode(",", $this->participant),
         ]);
     }
 }

@@ -8,22 +8,22 @@ class Form {
         const ATARI_DETAIL = document.getElementsByClassName('atari_detail_row');
         // let option_value = {oneeach:'item_create', bulk:'item_create_bulk'};
         this.switchDisplayStatus(KUJI_DETAIL_AREA, 'on');
-        KUJI_DETAIL_AREA.dataset.isopen = true;
+        // KUJI_DETAIL_AREA.dataset.isopen = true;
         switch (select_option){
             case option_value['oneeach']:
                 this.switchDisplayStatus(OPTION_BULK, 'off');
-                OPTION_BULK.dataset.isopen = false;
+                // OPTION_BULK.dataset.isopen = false;
                 for (let i = 0; i < ATARI_DETAIL.length; i++){
                     this.switchDisplayStatus(ATARI_DETAIL[i], 'on');
-                    ATARI_DETAIL[i].dataset.isopen = true;
+                    // ATARI_DETAIL[i].dataset.isopen = true;
                 }
                 break;
             case option_value['bulk']:
                 this.switchDisplayStatus(OPTION_BULK, 'on');
-                OPTION_BULK.dataset.isopen = true;
+                // OPTION_BULK.dataset.isopen = true;
                 for (let i = 0; i < ATARI_DETAIL.length; i++){
                     this.switchDisplayStatus(ATARI_DETAIL[i], 'off');
-                    ATARI_DETAIL[i].dataset.isopen = false;
+                    // ATARI_DETAIL[i].dataset.isopen = false;
                 }
                 break;
         }
@@ -55,9 +55,11 @@ class Form {
         switch (status){
             case 'on':
                 element.classList.remove(this.getDisplayStatusClassName('off'));
+                element.dataset.isopen = true;
                 break;
             case 'off':
                 element.classList.add(this.getDisplayStatusClassName('off'));
+                element.dataset.isopen = false;
                 break;
         }
     }
@@ -145,12 +147,12 @@ class Validation {
         }
     }
 
-    static atariText(target_field_value, message_field)
+    static nameText(target_field_value, message_field, max_length)
     {
         let flg = true
         for (let i = 0; i < target_field_value.length; i++){
-            if (target_field_value[i] == '' || target_field_value[i].length > 10){
-                message_field.innerText = this.message('atari_text');
+            if (target_field_value[i] == '' || target_field_value[i].length > max_length){
+                message_field.innerText = this.message('name_text');
                 flg = false;
                 break;
             } else {
@@ -176,6 +178,28 @@ class Validation {
         return flg;
     }
 
+    static participantNum(participant_array_length, kuji_num, message_field)
+    {
+        const PARTICIPANT_LENGTH = document.getElementById('participant_length');
+        PARTICIPANT_LENGTH.innerText = participant_array_length;
+        if (participant_array_length > kuji_num){
+            PARTICIPANT_LENGTH.classList.add('molecule_red');
+            PARTICIPANT_LENGTH.classList.remove('molecule_black');
+            message_field.innerText = this.message('participant_num');
+            return false;
+        } else if(participant_array_length < kuji_num){
+            PARTICIPANT_LENGTH.classList.add('molecule_red');
+            PARTICIPANT_LENGTH.classList.remove('molecule_black');
+            message_field.innerText = this.message('participant_num');
+            return false;
+        } else {
+            PARTICIPANT_LENGTH.classList.remove('molecule_red');
+            PARTICIPANT_LENGTH.classList.add('molecule_black');
+            message_field.innerText = '';
+            return true;
+        }
+    }
+
     static message(err_type)
     {
         switch (err_type){
@@ -194,13 +218,15 @@ class Validation {
             case 'atari_types_num':
                 return '※あたりくじの種類は1以上25以下の整数で設定してください。';
                 break;
-            case 'atari_text':
-                return '※あたりくじの名前は10文字以下で設定してください。\n　(空欄不可)';
+            case 'name_text':
+                return '※名前は10文字以下で設定してください。\n　(空欄不可)';
                 break;
             case 'atari_num':
                 return '※あたりくじの本数は0以上24以下の整数で設定してください。';
-                break;                
-        }
+                break;
+            case 'participant_num':
+                return '※参加者の人数とくじの数が異なっています。';
+        } 
     }
 }
 
@@ -375,4 +401,38 @@ class Oneeach {
         }
     }
 
+}
+
+class Participant {
+
+    static nameParticipantNameRandom(kuji_num)
+    {
+        const PARTICIPANT_NAME_LIST = [
+            'ボブ','ジャスミン','サラ','ホセ','ブライアン',
+            'キャシー','アーサー','太郎','アダム','イブ',
+            'アイリーン','エリーゼ','ガブリエラ','サシャ','ティナ',
+            'ディエゴ','ドミニク','ハワード','ペドロ','マイケル',
+            'ミゲル','マリベル','マーガレット','ニーナ','花子',
+        ];
+        let participant_name_list_unique = PARTICIPANT_NAME_LIST;
+        let name_list = '';
+        let i = 1
+        let random_num = '';
+        random_num = Math.floor( Math.random() * participant_name_list_unique.length );
+        name_list = participant_name_list_unique[random_num];
+        participant_name_list_unique.splice(random_num, 1);
+        while (i < kuji_num){
+            random_num = Math.floor( Math.random() * participant_name_list_unique.length );
+            name_list = name_list + '\n' + participant_name_list_unique[random_num];
+            participant_name_list_unique.splice(random_num, 1);
+            i++;
+        }
+        return name_list;
+    }
+
+    static separateParticipantTextToArray(participant_text)
+    {
+        participant_text = participant_text.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+        return participant_text.split("\n");
+    }
 }

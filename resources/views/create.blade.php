@@ -162,6 +162,57 @@
                             </div>
                         </td>
                     </tr>
+
+                    <!-- update -->
+                    <tr><th>参加者の参加方法<span class="size_8px color_red">※</span></th></tr>
+                    <tr>
+                        <td>
+                            <div id="option_message_area" class="text-red"></div>
+                            <input type="radio" id="participant_self" class="item session_radiobutton" name="participant_radio" value="self" checked>名前もくじも参加者に選んでもらう場合
+                            <div class="description">各参加者が自分でくじの場所を選択や名前を入力してもらう形になります。</div>
+                            <input type="radio" id="participant_kujiauto" class="item session_radiobutton" name="participant_radio" value="kuji_auto">くじのみ参加者に選んでもらう場合
+                            <div class="description">参加者の名前のリストを作成者(あなた)が用意。<br>参加者は、用意された名前のリストから名前を選択肢、くじの場所も自分で選んでもらう形になります。<br>(名前のリストはコンピュータがランダムで作成することも出来ます。)</div>
+                            <input type="radio" id="participant_auto" class="item session_radiobutton" name="participant_radio" value="auto">特に参加者がいない場合
+                            <div class="description">名前のリストを作成者(あなた)が用意。作成した名前の場所もランダムで配置されます。<br>(名前のリストはコンピュータがランダムで作成することも出来ます。)<br>すぐにあみだくじの結果を確認することができます。</div>
+
+                            <div id="option_participant" class="display_status display_off session_isopen" data-isopen="false">
+                                <table class="participant_table">
+                                    <tr>
+                                        <td colspan="2">
+                                            <div class="margin_left_5px align_center">
+                                                <span>----------------------------------------------------------------------------------------------------</span>
+                                            </div>
+                                            <div class="margin_left_5px">
+                                                <div id="participant_text_message_area" class="text-red"></div>
+                                                <div id="participant_num_message_area" class="text-red"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <textarea id="participant_name" class="bulk" rows="10" name="participant_name"></textarea>
+                                            <div class="count_num">
+                                                <span id="participant_length" class="molecule_black">0</span>
+                                                <span>/</span>
+                                                <span id="kujinum_length" class="denominator">2</span>
+                                            </div>
+                                            <!-- <input type="button" value="ランダムに名前を生成"> -->
+                                        </td>
+                                        <td rowspan="2">
+                                            <div class="participant_username_description">
+                                                <div>※改行区切りで名前を入力してください。<br>　(外部に公開されますので、個人を特定できる名前の使用はお控えください。)</div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr><td id="button_align_center"><input type="button" id="name_random_button" class="button" value="ランダムに名前を生成"></td></tr>
+                                </table>                           
+                            </div>
+
+                        </td>
+                    </tr>
+                    <!-- end update -->
+
+
                     <tr><th>参加者へのメッセージ</th></tr>
                     <tr>
                         <td>
@@ -178,6 +229,7 @@
                 <input type="hidden" name="hazure_num" id="hazure" value="{{ old('hazure_num', '') }}">
                 <input type="hidden" name="atari_items_name" id="atari_items_name" value="{{ old('atari_items_name', '') }}">
                 <input type="hidden" name="atari_items_num" id="atari_items_num" value="{{ old('atari_items_num', '') }}">
+                <input type="hidden" name="participant" id="participant" value="{{ old('participant', '') }}">
                 <div class="space"></div> 
                 <input type="button" name="submit_button" class="button button--shadow" value="あたりくじを作成する" id="submit_button"/>
             </form>

@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
         <title>{{ $user->title }}</title>
 
@@ -78,7 +79,7 @@
             <div class="space"></div>
             <div class="amida_all">
                 <div id="amida_head">
-                    <table id="amida_start">
+                    <table id="amida_start" class="amida_start">
                     </table>
                 </div>
                 <div class="amida_body">

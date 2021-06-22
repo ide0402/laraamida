@@ -28,6 +28,19 @@ class Setting {
     static setAmidaStart(kuji_num)
     {
         const TABLE_ICON = document.getElementById('amida_start');
+
+        //追加
+        if (player_list != ''){
+            let table_icon_row = TABLE_ICON.insertRow(-1);
+            for (let i = 0; i < kuji_num; i++){
+                let table_icon_cell = table_icon_row.insertCell(i);
+                table_icon_cell.id = 'list_cell_col' + i;
+                const TABLE_ICON_CELL = document.getElementById(table_icon_cell.id);
+                this.createSelectTagOfPlayerList(TABLE_ICON_CELL, i);
+            }    
+        }
+
+        //end 追加
         let table_icon_row = TABLE_ICON.insertRow(-1);
         for (let i = 0; i < kuji_num; i++){
             let table_icon_cell = table_icon_row.insertCell(i);
@@ -38,6 +51,25 @@ class Setting {
             } else {
                 this.insertImg(TABLE_ICON_CELL, i);
             }
+        }
+    }
+
+    static createSelectTagOfPlayerList(parent_cell, i_cnt)
+    {
+        let select = document.createElement('select');
+        select.id = 'list' + i_cnt;
+        select.className = 'select_playerlist'
+        parent_cell.appendChild(select);
+        let option = document.createElement('option');
+        option.innerHTML = '名前を選択';
+        option.defaultSelected = true;
+        option.disabled = true;
+        select.appendChild(option);
+        for (let i = 0; i < player_list.length; i++){
+            let option = document.createElement('option');
+            option.setAttribute('value', player_list[i]);
+            option.innerHTML = player_list[i];
+            select.appendChild(option);
         }
     }
 
@@ -52,18 +84,16 @@ class Setting {
 
     static insertImg(TABLE_ICON_CELL, col_num)
     { 
-        // let img_icon = document.createElement('img');
-        // img_icon.src = 'images/icon.png';
-        // img_icon.id = 'icon_' + col_num;
-        // img_icon.className = 'icon';
-
+        let div = document.createElement('div');
+        div.className = 'player';
         let img_icon = document.createElement('div');
         img_icon.src = 'images/icon.png';
         img_icon.id = 'icon_' + col_num;
         img_icon.className = 'icon';
         img_icon.innerText = '選択';
 
-        TABLE_ICON_CELL.appendChild(img_icon);
+        TABLE_ICON_CELL.appendChild(div);
+        div.appendChild(img_icon);
     }
 
     static setAmidaGoal()

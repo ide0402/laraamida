@@ -255,6 +255,7 @@ tr.create_atarikuji {
 .count_num {
     font-size: 7px;
     text-align: right;
+    margin-top: 0px;
 }
 
 .molecule_black {
@@ -287,4 +288,30 @@ tr.create_atarikuji {
     overflow: scroll;
     border: #999999 1px solid;
     overflow: hidden visible;
+}
+
+table.participant_table {
+    border:none;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 15px;
+}
+
+table.participant_table td{
+    border:none;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.border_dot {
+    border-style: dotted;
+}
+
+.participant_username_description {
+    height:205px;
+    border: #999999 1px solid;
+}
+
+#button_align_center{
+    text-align: center;
 }

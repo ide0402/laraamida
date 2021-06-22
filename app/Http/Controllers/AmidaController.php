@@ -36,12 +36,45 @@ class AmidaController extends Controller
         $atari = $this->decideAtariPlacementByRandom($request->atari_name, $request->atari_num, $request->hazure_num);
         $user->atari = serialize($atari);
         $user->save();
+        if ($request->participant_radio == 'kuji_auto'){
+            $user->player_list = serialize($request->participant);
+        } elseif ($request->participant_radio == 'auto') {
+            $participant_array = $request->participant;
+            shuffle($participant_array);
+            $user->player()->create([
+                'player_field' => serialize($participant_array),
+                'publish_flg' => 1,
+            ]);
+        }
+        $user->save();
         return redirect('/'. $user->id);
     }
 
     public function showAmida(User $user)
     {
-        if (is_null($user->player)){
+        // if (is_null($user->player)){
+        //     JavaScript::put([
+        //         'title' => $user->title,
+        //         'manager_comment' => $user->manager_comment,
+        //         'atari_array' => unserialize($user->atari),
+        //         'kuji_num' => $user->kuji_num, 
+        //         'amida_array' => unserialize($user->amida), 
+        //         'player_field' => '',
+        //         'publish_flg' => 0,
+        //     ]);                
+        // } else {
+        //     JavaScript::put([
+        //         'title' => $user->title,
+        //         'manager_comment' => $user->manager_comment,
+        //         'atari_array' => unserialize($user->atari),
+        //         'kuji_num' => $user->kuji_num, 
+        //         'amida_array' => unserialize($user->amida), 
+        //         'player_field' => unserialize($user->player->player_field),
+        //         'publish_flg' => $user->player->publish_flg,
+        //     ]); 
+        // }
+
+        if (is_null($user->player) && is_null($user->player_list)){
             JavaScript::put([
                 'title' => $user->title,
                 'manager_comment' => $user->manager_comment,
@@ -50,7 +83,19 @@ class AmidaController extends Controller
                 'amida_array' => unserialize($user->amida), 
                 'player_field' => '',
                 'publish_flg' => 0,
-            ]);                
+                'player_list' => '',
+            ]);
+        } elseif (is_null($user->player) && !is_null($user->player_list)){
+            JavaScript::put([
+                'title' => $user->title,
+                'manager_comment' => $user->manager_comment,
+                'atari_array' => unserialize($user->atari),
+                'kuji_num' => $user->kuji_num, 
+                'amida_array' => unserialize($user->amida), 
+                'player_field' => '',
+                'publish_flg' => 0,
+                'player_list' => unserialize($user->player_list),
+            ]);
         } else {
             JavaScript::put([
                 'title' => $user->title,
@@ -60,8 +105,12 @@ class AmidaController extends Controller
                 'amida_array' => unserialize($user->amida), 
                 'player_field' => unserialize($user->player->player_field),
                 'publish_flg' => $user->player->publish_flg,
+                'player_list' => '',
             ]); 
         }
+
+
+
         return view('amidakuji')->with([
             'user' => $user,
         ]);

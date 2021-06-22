@@ -7,14 +7,102 @@ body {
     width: 1000px;
     margin-left: auto;
     margin-right: auto;
-
-    /* display: flex; */
-    /* justify-content: center; */
-    /* align-items: center; */
+    text-align: center;
 }
 
-table {
-    /* width:auto; */
+/* tableタグ書き直し */
+table#amida_start {
+    table-layout: fixed;
+    padding:0;
+    border-style:none;
+    border-collapse: separate;
+    border-spacing: 0px;
+    max-width: 1000px;
+    min-width: 400px;
+    margin: 0px auto;
+    /* width:400px; */
+    text-align:center ;
+    word-wrap: break-word;
+
+}
+
+table#amida_start tr{
+    margin: 0px;
+    padding:0;
+    border-spacing: 0px;
+    border-style:none;
+    text-align:center ;
+    min-height:40px;
+    word-wrap: break-word;
+}
+
+table#amida_start td{
+    margin: 0px;
+    padding:0;
+    border-spacing: 0px;
+    border-style:none;
+    text-align:center ;
+    min-height:40px;
+    align-items: center;
+
+    max-width:200px;
+    min-width:40px;
+    word-wrap: break-word;
+    /* display: inline-block;     */
+}
+
+
+/* #amida_head table{
+    padding:0;
+    border-style:none;
+    border-collapse: separate;
+    border-spacing: 0px;
+    max-width: 1000px;
+    min-width: 400px;
+    table-layout: fixed;
+    word-wrap: break-word;
+
+    margin: 0px auto;
+
+    display: block;
+
+} */
+
+/* #amida_head tr {
+    margin: 0px;
+    padding:0;
+    border-spacing: 0px;
+    border-style:none;
+    text-align:center ;
+    height:40px;
+} */
+
+/* #amida_head td, th {
+    margin: 0px;
+    padding:0;
+    border-spacing: 0px;
+    border-style:none;
+    text-align:center ;
+    height:40px;
+    align-items: center;
+
+    max-width:200px;
+    min-width:40px;
+    display: inline-block;
+} */
+
+.player {
+    width:auto;
+    /* max-width:200px;
+    min-width:40px; */
+}
+
+.icon{
+    width: auto;
+}
+
+
+/* table {
     max-width: 1000px;
     min-width: 400px;
     table-layout: fixed;
@@ -36,12 +124,12 @@ td {
     border-left:4px solid;
     text-align: center;
     padding: 0px;
-    /* width:40px; */
     height:40px;
 
-    /* %指定でもいいかもね */
     max-width:100px;
     min-width:20px;
+    min-height: 40px;
+    max-height: 200px;
 }
 
 td[colspan="2"] {
@@ -49,12 +137,7 @@ td[colspan="2"] {
     min-width:40px;
 }
 
-/* #amida_table tr, td, th {
-    border: none;    
-} */
-
 #amida_head table{
-    /* margin: 0px auto; */
     padding:0;
     border-style:none;
     border-collapse: separate;
@@ -67,7 +150,6 @@ td[colspan="2"] {
     border-spacing: 0px;
     border-style:none;
     text-align:center ;
-    /* width:40px; */
     height:25px;
 }
 
@@ -77,17 +159,21 @@ td[colspan="2"] {
     border-spacing: 0px;
     border-style:none;
     text-align:center ;
-    width:40px;
     height:40px;
     align-items: center;
 
     max-width:200px;
     min-width:40px;
+}
 
+.select_playerlist{
+    height: auto;
+    width:40px;
+    border:1px solid;
+    overflow-wrap: break-word;
 }
 
 #amida_bottom table{
-    /* margin: 0px auto; */
     padding:0;
     border-style:none;
     border-collapse: separate;
@@ -100,7 +186,6 @@ td[colspan="2"] {
     border-spacing: 0px;
     border-style:none;
     text-align:center ;
-    /* width:40px; */
     height:25px;
 }
 
@@ -116,7 +201,9 @@ td[colspan="2"] {
     max-width:200px;
     min-width:40px;
 
-}
+} */
+
+/* ここまで */
 
 td img {
     vertical-align: top;
@@ -164,21 +251,12 @@ td img {
     border-top:4px solid red;
 }
 
+/* ここも変更 */
 /* .icon {
-    width:auto;
-    height:auto;
-    max-width:50%;
-    max-height:50%;
-    cursor: pointer;
-} */
-
-.icon {
     margin-left: auto;
     margin-right: auto;
     width:34px;
     height:auto;
-    /* max-width:50%;
-    max-height:50%; */
     cursor: pointer;
     color: #fff;
     background: #668ad8;
@@ -201,7 +279,9 @@ td img {
     font-size: 13px;
     text-align: center;
     cursor: pointer;
-}
+} */
+
+/* ここまで */
 
 .message_header {
     width:40ch;
@@ -291,4 +371,9 @@ td img {
 
 .margin20{
     margin: 20px;
+}
+
+.icon_area{
+    max-width:200px;
+    min-width:40px;
 }
